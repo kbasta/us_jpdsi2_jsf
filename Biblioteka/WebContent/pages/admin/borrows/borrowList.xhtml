@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+							toggleable="true" toggleSpeed="350" collapsed="true">
+					<h:panelGrid columns="6" cellpadding="5">
+       					<p:outputLabel value="Imie:" />
+						<p:inputText value="#{wypozyczenieListBB.imie}" />
+						<p:outputLabel value="Nazwisko:" />
+						<p:inputText value="#{wypozyczenieListBB.nazwisko}" />
+						<p:outputLabel value="Login:" />
+						<p:inputText value="#{wypozyczenieListBB.login}" />
+       					<p:outputLabel value="Autor:" />
+						<p:inputText value="#{wypozyczenieListBB.autor}" />
+       					<p:outputLabel value="Tytuł:" />
+						<p:inputText value="#{wypozyczenieListBB.tytul}" />
+						<p:outputLabel /><p:outputLabel />
+						<p:outputLabel value="Status:" />
+						<p:selectOneMenu value="#{wypozyczenieListBB.status}" >
+							<f:selectItem itemLabel="---" itemValue="" />
+            				<f:selectItem itemLabel="Wypozyczony" itemValue="wypo" />
+				            <f:selectItem itemLabel="Oddany" itemValue="odd" />
+				            <f:selectItem itemLabel="Oczekiwany" itemValue="ocze" />
+       					</p:selectOneMenu>
+       					<p:outputLabel /><p:outputLabel />
+       					<p:outputLabel /><p:outputLabel />
+						<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
+					</h:panelGrid>
+				</p:fieldset>
+			</h:form>
+		</div>
+				
+		<p:dataTable id="userTable" value="#{wypozyczenieListBB.list}" var="borrow" rows="20" 
+					 paginator="true" 
+					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
+			<f:facet name="header">
+				Lista wypozyczeń
+			</f:facet>
+	         <f:facet name="{Exporters}">
+				<h:form style="float:right">
+					<h:commandLink ajax="false">
+						<p:graphicImage name="template/img/xls-icon.png" width="26"/>
+				        <p:dataExporter type="xls" target="userTable" fileName="reportFile"/>
+				    </h:commandLink>
+			    </h:form>
+	        </f:facet>
+			<p:column headerText="Numer wypozyczenia">
+				<h:outputText value="#{borrow.idWyp}" />
+			</p:column>
+			<p:column headerText="Imię">
+				<h:outputText value="#{borrow.uzytkownik.imie}" />
+			</p:column>
+			<p:column headerText="Nazwisko">
+				<h:outputText value="#{borrow.uzytkownik.nazwisko}" />
+			</p:column>
+			<p:column headerText="Login">
+				<h:outputText value="#{borrow.uzytkownik.login}" />
+			</p:column>
+			<p:column headerText="Autor">
+				<h:outputText value="#{borrow.ksiazka.autor}" />
+			</p:column>
+			<p:column headerText="Tytuł">
+				<h:outputText value="#{borrow.ksiazka.tytul}" />
+			</p:column>
+			<p:column headerText="Data wypozyczenia">
+				<h:outputText value="#{borrow.dataWyp}" />
+			</p:column>
+			<p:column headerText="Data oddania">
+				<h:outputText value="#{borrow.dataWyp}" />
+			</p:column>
+			<p:column headerText="Status">
+				<h:outputText value="#{borrow.status}" />
+			</p:column>
+			<p:column headerText="Opcje" exportable="false">
+				<h:form>
+				<p:menuButton value="Opcje" >
+
+			        <p:separator />
+
+			    </p:menuButton>
+			    </h:form>
+			</p:column>
+		</p:dataTable>	
+	</div>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -28,14 +28,12 @@
 	
 			<div id = "menu" class = "col-lg-3 col-sm-6">
 				<ul>
-					
-			<h:form style="display:inline;">
-				<li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
-				<li><p:commandButton value="Ksiazki" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
-				<li><p:commandButton value="Wypozyczenia" action="#{routeBB.rules()}" styleClass="menuPrimeButtonsWidth"/></li>
-				<li><p:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
-			</h:form>
-	
+					<h:form style="display:inline;">
+						<li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="Ksiazki" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="Wypozyczenia" action="#{routeBB.adminBorrows()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
+					</h:form>
 				</ul>
 			</div>
 

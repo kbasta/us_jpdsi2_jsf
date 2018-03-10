@@ -49,23 +49,78 @@ public class WypozyczenieListBB implements Serializable{
 	public void setBookId(int bookid) {
 		this.bookid = bookid;
 	}
+
+	private String status;
+	private String imie;
+	private String nazwisko;
+	private String login;
+	private String tytul;
+	private String autor;
+	private String idWyp;
 	
+	public String getIdWyp() {
+		return idWyp;
+	}
 	
+	public void setIdWyp(String idWyp) {
+		this.idWyp = idWyp;
+	}
+	
+	public String getImie() {
+		return imie;
+	}
+
+	public void setImie(String imie) {
+		this.imie = imie;
+	}
+
+	public String getNazwisko() {
+		return nazwisko;
+	}
+
+	public void setNazwisko(String nazwisko) {
+		this.nazwisko = nazwisko;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getTytul() {
+		return tytul;
+	}
+
+	public void setTytul(String tytul) {
+		this.tytul = tytul;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	//Dependency injection
 	// - no setter method needed in this case
 	@EJB
 	WypozyczenieDAO wypozyczenieDAO;
 	KsiazkaDAO ksiazkaDAO;
 	
-	private int idWyp;
 	
-	public int getIdWyp() {
-		return idWyp;
-	}
-	
-	public void setIdWyp(int idWyp) {
-		this.idWyp = idWyp;
-	}
 	
 	private Wypozyczenie wypozyczenie = null;
 	
@@ -73,6 +128,25 @@ public class WypozyczenieListBB implements Serializable{
 		return wypozyczenieDAO.getFullList();
 	}
 
+	public List<Wypozyczenie> getList(){
+		List<Wypozyczenie> list = null;
+		
+		//1. Prepare search params
+		Map<String,Object> searchParams = new HashMap<String, Object>();
+		
+		searchParams.put("status", status);
+		searchParams.put("imie", imie);
+		searchParams.put("nazwisko", nazwisko);
+		searchParams.put("login", login);
+		searchParams.put("autor", autor);
+		searchParams.put("tytul", tytul);
+
+		//2. Get list
+		list = wypozyczenieDAO.getList(searchParams);
+		
+		return list;
+	}
+	
 	public List<Wypozyczenie> getListForUser(){
 		List<Wypozyczenie> list = null;
 		
@@ -101,12 +175,6 @@ public class WypozyczenieListBB implements Serializable{
 		session.setAttribute("ksiazka", ksiazka);
 		Wypozyczenie wypozyczenie = new Wypozyczenie();
 		session.setAttribute("wypozyczenie", wypozyczenie);
-	/*	wypozyczenie.setUzytkownik(uzytkownik);
-		wypozyczenie.setKsiazka(ksiazka);
-		wypozyczenie.setStatus("oczekiwany");
-		wypozyczenie.setDataOd(dataWypoz);
-		wypozyczenie.setDataOd(dataWypoz);
-		wypozyczenieDAO.create(wypozyczenie);*/
 		saveData();
 		return PAGE_STAY_AT_THE_SAME;
 	}

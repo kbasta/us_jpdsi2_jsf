@@ -49,26 +49,96 @@ public class WypozyczenieDAO {
 		List<Wypozyczenie> list = null;
 
 		// 1. Build query string with parameters
-		String select = "select p ";
-		String from = "from Wypozyczenie p ";
+		String select = "select w ";
+		String from = "from Wypozyczenie w ";
+		String join = "LEFT JOIN w.ksiazka k LEFT JOIN w.uzytkownik u ";
 		String where = "";
-		String orderby = "order by p.data_od asc, p.userid";
-
-		// search for surname
+		String orderby = "order by w.dataOd asc";
 		
-		// ... other parameters ... 
+		String status = (String) searchParams.get("status");
+		if (status != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "w.status like :status ";
+		}
 
+		String imie = (String) searchParams.get("imie");
+		if (imie != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "u.imie like :imie ";
+		}
+		
+		String nazwisko = (String) searchParams.get("nazwisko");
+		if (nazwisko != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "u.nazwisko like :nazwisko ";
+		}
+		
+		String login = (String) searchParams.get("login");
+		if (login != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "u.login like :login ";
+		}
+		
+		String autor = (String) searchParams.get("autor");
+		if (autor != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "k.autor like :autor ";
+		}
+		
+		String tytul = (String) searchParams.get("tytul");
+		if (tytul != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "k.tytul like :tytul ";
+		}
+		
 		// 2. Create query object
-		Query query = em.createQuery(select + from + where + orderby);
+		Query query = em.createQuery(select + from + join + where + orderby);
 
 		// 3. Set configured parameters
-	/*	if (login != null) {
-			query.setParameter("login", "%"+login+"%");
+		if (status != null) {
+			query.setParameter("status", "%"+status+"%");
+		}
+		if (imie != null) {
+			query.setParameter("imie", "%"+imie+"%");
 		}
 		if (nazwisko != null) {
 			query.setParameter("nazwisko", "%"+nazwisko+"%");
 		}
-	*/	
+		if (login != null) {
+			query.setParameter("login", "%"+login+"%");
+		}
+		if (autor != null) {
+			query.setParameter("autor", "%"+autor+"%");
+		}
+		if (tytul != null) {
+			query.setParameter("tytul", "%"+tytul+"%");
+		}
+		
+		
 		// ... other parameters ... 
 
 		// 4. Execute query and retrieve list of Person objects
