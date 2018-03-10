@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<div id = "naglowek" class = "col-lg-12">
+		<img src = "#{resource['template:img/book.png']}"/>
+	</div>
+	<div id="userInfo">
+		<h:outputText value="Zalogowany: #{loginBB.user.imie} #{loginBB.user.nazwisko}
+							 #{loginBB.user.id} #{loginBB.user.rola}" />
+		</div>
+</ui:composition>

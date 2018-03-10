@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Bilblioteka</title>
+	<h:outputStylesheet name="styl.css" library="css" />
+	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputStylesheet name="styleN.css" library="css" />
+	<link type="image/x-icon" rel="shortcut icon"
+		href="#{resource['template:img/java.ico']}" />
+</h:head>
+
+<h:body>
+	<div id="page_wrapper">
+		<ui:insert name="header">
+			<div id="header" class="box bottom-space">
+				<ui:include src="/templates/header-snippet.xhtml" />
+			</div>
+		</ui:insert>
+		<div id = "kontener" class = "col-lg-13">
+	
+			<div id = "menu" class = "col-lg-3 col-sm-6">
+				<ul>
+					
+			<h:form style="display:inline;">
+				<li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
+				<li><p:commandButton value="Ksiazki" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
+				<li><p:commandButton value="Wypozyczenia" action="#{routeBB.rules()}" styleClass="menuPrimeButtonsWidth"/></li>
+				<li><p:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
+			</h:form>
+	
+				</ul>
+			</div>
+
+			<ui:insert name="content"></ui:insert>
+		</div>
+		<ui:insert name="footer">
+			<div id = "stopka" class = "col-lg-12">
+				<p>&copy; Kamil Basta</p>
+			</div>
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:growl id="messages" sticky="false" />  
+				<p:fieldset legend="Edycja profilu" style="border-radius: 0.2em; background-color: #ccc;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="p-tytul" value="Tytuł:" />
+						<p:inputText id="p-tytul" value="#{ksiazkaAdminEditBB.tytul}" />
+						<p:outputLabel for="p-autor" value="Autor:" />
+						<p:inputText id="p-autor" value="#{ksiazkaAdminEditBB.autor}" />
+						<p:outputLabel for="p-gatunek" value="Gatunek:" />
+						<p:inputText id="p-gatunek" value="#{ksiazkaAdminEditBB.gatunek}" />
+						<p:outputLabel for="p-ile" value="Liczba sztuk:" />
+						<p:inputText id="p-ile" value="#{ksiazkaAdminEditBB.ile}"/>	
+					</h:panelGrid>
+					<p:commandButton value="Zapisz" action="#{ksiazkaAdminEditBB.saveData()}" 
+			        			icon="ui-icon-disk" update="messages" />
+	    			<p:commandButton value="Powrót" action="#{routeBB.adminBooks()}" icon="ui-icon-undo" />
+				</p:fieldset>
+			</h:form>
+		</div>
+	</div>
+	<h:messages styleClass="msg info newInfo" />
+	</ui:define>
+
+</ui:composition>
+</html>

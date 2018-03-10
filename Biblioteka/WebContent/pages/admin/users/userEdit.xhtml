@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:fieldset legend="Edycja profilu" style="border-radius: 0.2em; background-color: #ccc;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="p-imie" value="Imie:" />
+						<p:inputText id="p-imie" value="#{uzytkownikAdminEditBB.imie}" />
+						<p:outputLabel for="p-nazwisko" value="Nazwisko:" />
+						<p:inputText id="p-nazwisko" value="#{uzytkownikAdminEditBB.nazwisko}" />
+						<p:outputLabel for="p-login" value="Login:" />
+						<p:inputText id="p-login" value="#{uzytkownikAdminEditBB.login}" />
+						<p:outputLabel for="p-kara" value="Kara:" />
+						<p:inputText id="p-kara" value="#{uzytkownikAdminEditBB.kara}" disabled="true"/>	
+					</h:panelGrid>
+					<p:commandButton value="Zapisz" action="#{uzytkownikAdminEditBB.saveData()}" 
+			        			icon="ui-icon-disk"  />
+	    			<p:commandButton value="Powrót" action="#{routeBB.adminUsers()}" icon="ui-icon-undo" />
+				</p:fieldset>
+			</h:form>
+		</div>
+	</div>
+	<h:messages styleClass="msg info newInfo" />
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,127 @@
+package bib.dao;
+
+import java.util.List;
+import java.util.Map;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import bib.entities.Wypozyczenie;
+
+@Stateless
+public class WypozyczenieDAO {
+	
+	@PersistenceContext(unitName = "bibPU")
+	protected EntityManager em;
+	
+	public void create(Wypozyczenie wypozyczenie) {
+		em.persist(wypozyczenie);
+		// em.flush();
+	}
+
+	public Wypozyczenie merge(Wypozyczenie wypozyczenie) {
+		return em.merge(wypozyczenie);
+	}
+
+	public void remove(Wypozyczenie wypozyczenie) {
+		em.remove(em.merge(wypozyczenie));
+	}
+
+	public Wypozyczenie find(Object id) {
+		return em.find(Wypozyczenie.class, id);
+	}
+	
+	public List<Wypozyczenie> getFullList() {
+		List<Wypozyczenie> list = null;
+
+		Query query = em.createQuery("select p from Wypozyczenie p");
+
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	public List<Wypozyczenie> getList(Map<String, Object> searchParams) {
+		List<Wypozyczenie> list = null;
+
+		// 1. Build query string with parameters
+		String select = "select p ";
+		String from = "from Wypozyczenie p ";
+		String where = "";
+		String orderby = "order by p.data_od asc, p.userid";
+
+		// search for surname
+		
+		// ... other parameters ... 
+
+		// 2. Create query object
+		Query query = em.createQuery(select + from + where + orderby);
+
+		// 3. Set configured parameters
+	/*	if (login != null) {
+			query.setParameter("login", "%"+login+"%");
+		}
+		if (nazwisko != null) {
+			query.setParameter("nazwisko", "%"+nazwisko+"%");
+		}
+	*/	
+		// ... other parameters ... 
+
+		// 4. Execute query and retrieve list of Person objects
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	public List<Wypozyczenie> getListForUser(Map<String, Object> searchParams) {
+		List<Wypozyczenie> list = null;
+
+		// 1. Build query string with parameters
+		String select = "select w ";
+		String from = "from Wypozyczenie w ";
+		String join = "LEFT JOIN w.ksiazka k LEFT JOIN w.uzytkownik u ";
+		String where = "";
+		String orderby = "order by w.dataOd asc";
+
+		// search for surname
+		int userid = (int) searchParams.get("userid");
+		if (userid != 0) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "u.id = :userid ";
+		}
+	
+		// ... other parameters ... 
+
+		// 2. Create query object
+		Query query = em.createQuery(select + from + join + where + orderby);
+
+		// 3. Set configured parameters
+		if (userid != 0) {
+			query.setParameter("userid", userid);
+		}
+		
+		// ... other parameters ... 
+
+		// 4. Execute query and retrieve list of Person objects
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/login-template.xhtml">
+
+	<ui:define name="content">
+		<div id="logowanie">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+					<h:outputLabel for="imie" value="Imie:" />
+					<h:inputText id="imie" value="#{uzytkownikEditBB.imie}" />
+					<h:outputLabel for="nazwisko" value="Nazwisko:" />
+					<h:inputText id="nazwisko" value="#{uzytkownikEditBB.nazwisko}" />
+					<h:outputLabel for="login" value="Login:" />
+					<h:inputText id="login" value="#{uzytkownikEditBB.login}" />
+					<h:outputLabel for="haslo" value="Hasło:" />
+					<h:inputSecret id="haslo" value="#{uzytkownikEditBB.haslo}" />
+		
+				</h:panelGrid>
+				<br/>
+				<h:commandButton styleClass="myDefaultButton odstepPrzyciskiRejestracja" value="Zarejestruj" action="#{uzytkownikEditBB.saveData()}" />
+				<h:commandButton styleClass="myDefaultButton" value="Powrót" action="#{routeBB.login()}" />
+			</h:form>
+		</div>
+		<div id="msgRejestracja">
+			<h:messages styleClass="msg info newInfo"/>
+		</div>
+	</ui:define>
+
+</ui:composition>
+</html>

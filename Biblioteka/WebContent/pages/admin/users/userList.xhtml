@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+							toggleable="true" toggleSpeed="350" collapsed="true">
+					<h:panelGrid columns="6" cellpadding="5">
+						<p:outputLabel value="Imie:" />
+						<p:inputText value="#{uzytkownikListBB.imie}" />
+						<p:outputLabel value="Nazwisko:" />
+						<p:inputText value="#{uzytkownikListBB.nazwisko}" />
+						<p:outputLabel value="Login:" />
+						<p:inputText value="#{uzytkownikListBB.login}" />
+					<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
+					</h:panelGrid>
+				</p:fieldset>
+			</h:form>
+		</div>
+			
+			
+		<p:dataTable id="userTable" value="#{uzytkownikListBB.list}" var="user" rows="15" 
+					 paginator="true" 
+					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
+			<f:facet name="header">
+				Lista uzytkowników
+			</f:facet>
+			<p:column headerText="Id">
+				<h:outputText value="#{user.id}" />
+			</p:column>
+			<p:column headerText="Imie">
+				<h:outputText value="#{user.imie}" />
+			</p:column>
+			<p:column headerText="Nazwisko">
+				<h:outputText value="#{user.nazwisko}" />
+			</p:column>
+			<p:column headerText="Kara">
+				<h:outputText value="#{user.kara}" />
+			</p:column>
+			<p:column headerText="Opcje">
+			<h:form>
+			<p:menuButton value="Opcje">
+		        <p:menuitem value="Edytuj" outcome="/pages/admin/users/userEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+		        	<f:param name="p" value="#{user.id}" />
+		        </p:menuitem>
+		        <p:separator />
+		        <p:menuitem value="Usuń" actionListener="#{uzytkownikListBB.deleteUzytkownik(user)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close"/>    
+		    </p:menuButton>
+		    </h:form>
+			</p:column>
+		</p:dataTable>
+		
+	</div>
+	</ui:define>
+
+</ui:composition>
+</html>

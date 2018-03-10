@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/login-template.xhtml">
+
+	<ui:define name="content">
+
+		<div id="logowanie">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+					<h:outputLabel for="login" value="login:" />
+					<h:inputText id="login" value="#{loginBB.login}" />
+					<h:outputLabel for="pass" value="hasło:" />
+					<h:inputSecret id="pass" value="#{loginBB.pass}" />
+				</h:panelGrid>
+			
+				
+				<br/>
+				<h:commandButton styleClass="myDefaultButton" value="Zaloguj" action="#{loginBB.doLogin()}" update="msg" />
+	
+			</h:form>
+		</div>
+		<div id="rejestracja">
+			<p>Jesli nie masz u nas konta. Mozesz się zarejestorać klikając w przycisk ponizej</p>
+			<h:form><h:commandButton styleClass="myDefaultButton" value="Zarejestruj" action="#{uzytkownikListBB.newUzytkownik()}"/></h:form>
+		<div id="messagesBoxLogin">
+			<h:messages styleClass="msg info newInfo" />
+		</div>
+		</div>
+		
+	</ui:define>
+
+</ui:composition>
+</html>

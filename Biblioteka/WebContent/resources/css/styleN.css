@@ -1,0 +1,77 @@
+body{
+}
+
+#menu{
+	width: 15%;
+	display: block;
+	float: left;
+}
+
+#content{
+	width: 83%;
+	display: block;
+	float : left;
+}
+
+#rejestracja{
+	width: 65%;
+	display: block;
+	float: right;
+	position: relative;
+	top: -96px;	
+}
+
+#logowanie{
+	margin-left: 60px;
+	display: block;
+	position: relative;
+	top: 33px;		
+}
+
+.newInfo{
+	width: auto;
+}
+
+#messagesBoxLogin{
+	float: left;
+	width: 300px;
+}
+
+#msgRejestracja{
+	display: block;
+	float: right;
+	position: Relative;
+	top: -130px;
+	right: 35%;
+}
+
+#userInfo{
+	display: block;
+	float: right;
+}
+
+.menuPrimeButtonsWidth{
+	width: 180px;
+}
+
+.menuPrimeButtonsVerticalPaddings{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.searchPrimeForm{
+	border-radius: 0.2em; 
+	backgroud-color: #f0f;
+}
+
+.messages { }
+.messages ul { list-style-type: none; padding: 0; }
+.msg{
+	border-radius: 0.5em;
+	padding: 1em;
+	margin-bottom: 0.5em;
+	box-shadow: 0.2em 0.2em 0.4em #ccc;
+}
+.error{	background-color: #f88; }
+.warning{ background-color: #fd2; }
+.info{ background-color: #afa; }

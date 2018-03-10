@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+							toggleable="true" toggleSpeed="350" collapsed="true">
+					<h:panelGrid columns="6" cellpadding="5">
+						<p:outputLabel value="Autor:" />
+						<p:inputText value="#{ksiazkaListBB.autor}" />
+						<p:outputLabel value="Tytuł:" />
+						<p:inputText value="#{ksiazkaListBB.tytul}" />
+						<p:outputLabel value="Gatunek:" />
+						<p:inputText value="#{ksiazkaListBB.gatunek}" />
+					<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
+					</h:panelGrid>
+				</p:fieldset>
+			</h:form>
+		</div>
+				
+		<p:dataTable id="userTable" value="#{ksiazkaListBB.list}" var="book" rows="20" 
+					 paginator="true" 
+					 paginatorTemplate="{paginatorTopLeft} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
+			<f:facet name="header">
+				Lista ksiazek
+			</f:facet>
+	        <f:facet name="{paginatorTopLeft}">
+	            <p:commandButton value="Dodaj nową pozycje" action="#{ksiazkaListBB.newKsiazka()}"
+	            				 icon="ui ui-sync" process="@this" ajax="true" style="float:left"/>
+	        </f:facet>
+	         <f:facet name="{Exporters}">
+				<h:form style="float:right">
+					<h:commandLink ajax="false">
+						<p:graphicImage name="template/img/xls-icon.png" width="26"/>
+				        <p:dataExporter type="xls" target="userTable" fileName="reportFile"/>
+				    </h:commandLink>
+				    <h:commandLink ajax="false">
+				    	<p:graphicImage name="template/img/pdf-icon.png" width="26"/>
+				        <p:dataExporter type="pdf" target="userTable" fileName="reportFile" encoding="iso-8859-2" />
+				    </h:commandLink>
+			    </h:form>
+	        </f:facet>
+			<p:column headerText="Pseudo ISBN">
+				<h:outputText value="#{book.id}" />
+			</p:column>
+			<p:column headerText="Autor">
+				<h:outputText value="#{book.autor}" />
+			</p:column>
+			<p:column headerText="Tytuł">
+				<h:outputText value="#{book.tytul}" />
+			</p:column>
+			<p:column headerText="Gatunek">
+				<h:outputText value="#{book.gatunek}" />
+			</p:column>
+			<p:column headerText="Ile na stanie">
+				<h:outputText value="#{book.ile}" />
+			</p:column>
+			<p:column headerText="Opcje" exportable="false">
+				<h:form>
+				<p:menuButton value="Opcje" >
+			        <p:menuitem value="Edytuj" outcome="/pages/admin/books/bookEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+			        	<f:param name="p" value="#{book.id}" />
+			        </p:menuitem>
+			        <p:separator />
+			        <p:menuitem value="Usuń" actionListener="#{ksiazkaListBB.deleteKsiazka(book)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close">
+			        </p:menuitem>
+			    </p:menuButton>
+			    </h:form>
+			</p:column>
+		</p:dataTable>	
+	</div>
+	</ui:define>
+
+</ui:composition>
+</html>

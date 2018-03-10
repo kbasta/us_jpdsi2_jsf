@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div
+			>
+			<h:form>
+				<fieldset style="border-radius: 0.2em;">
+					<legend>Opcje wyszukiwania</legend>
+					<h:panelGrid columns="6" cellpadding="5">
+						<h:outputLabel value="Tytul:" />
+						<h:inputText value="#{ksiazkaListBB.tytul}" />
+						<h:outputLabel value="Autor:" />
+						<h:inputText value="#{ksiazkaListBB.autor}" />
+						<h:outputLabel value="Gatunek:" />
+						<h:inputText value="#{ksiazkaListBB.gatunek}" />
+					<h:commandButton value="Szukaj" update="table" />
+					</h:panelGrid>
+				</fieldset>
+			</h:form>
+		</div>
+
+		<div
+			>
+			<h:dataTable value="#{ksiazkaListBB.list}" var="book"
+				cellpadding="5" border="1" cellspacing="0">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Tytuł" />
+					</f:facet>
+					<h:outputText value="#{book.tytul}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Autor" />
+					</f:facet>
+					<h:outputText value="#{book.autor}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Gatunek" />
+					</f:facet>
+					<h:outputText value="#{book.gatunek}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Ile na stanie?" />
+					</f:facet>
+					<h:outputText value="#{book.ile}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Wypozycz" />
+					</f:facet>
+					<h:form>
+						<h:commandButton value="Wypozycz"
+							action="#{wypozyczenieListBB.newWypozyczenie(book)}" />
+					</h:form>
+				</h:column>
+
+			</h:dataTable>
+		</div>
+		
+	</div>
+	</ui:define>
+
+</ui:composition>
+</html>
