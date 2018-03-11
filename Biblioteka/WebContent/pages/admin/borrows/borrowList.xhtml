@@ -45,7 +45,7 @@
 		<p:dataTable id="userTable" value="#{wypozyczenieListBB.list}" var="borrow" rows="20" 
 					 paginator="true" 
 					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
+                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15" editable="true">
 			<f:facet name="header">
 				Lista wypozyczeń
 			</f:facet>

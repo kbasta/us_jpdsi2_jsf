@@ -3,11 +3,12 @@ package bib.wypozyczenie;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.sql.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -30,7 +31,7 @@ import com.jsfcourse.security.*;
 @ViewScoped
 public class WypozyczenieListBB implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private static final String PAGE_PERSON_EDIT = "search?faces-redirect=true";
+	private static final String PAGE_MY_BORROWS = "position?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -39,8 +40,8 @@ public class WypozyczenieListBB implements Serializable{
 	private int userid = u.getId();
 	private int bookid;
 	
-	Date dataWypoz = new Date();
-	//String dataOddan = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	Date dataWypoz = Date.valueOf(LocalDate.now());
+	Date dataOdd = Date.valueOf(LocalDate.now().plusDays(30));
 	
 	public int getBookid() {
 		return bookid;
@@ -114,15 +115,10 @@ public class WypozyczenieListBB implements Serializable{
 		this.status = status;
 	}
 
-	//Dependency injection
-	// - no setter method needed in this case
 	@EJB
 	WypozyczenieDAO wypozyczenieDAO;
 	KsiazkaDAO ksiazkaDAO;
 	
-	
-	
-	private Wypozyczenie wypozyczenie = null;
 	
 	public List<Wypozyczenie> getFullList(){
 		return wypozyczenieDAO.getFullList();
@@ -160,14 +156,7 @@ public class WypozyczenieListBB implements Serializable{
 		
 		return list;
 	}
-	
-	public String newWypozyczenie(){
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
-		Wypozyczenie wypozyczenie = new Wypozyczenie();
-		session.setAttribute("wypozyczenie", wypozyczenie);
-		return PAGE_PERSON_EDIT;
-	}
+
 	
 	public String newWypozyczenie(Ksiazka ksiazka){
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -175,7 +164,20 @@ public class WypozyczenieListBB implements Serializable{
 		session.setAttribute("ksiazka", ksiazka);
 		Wypozyczenie wypozyczenie = new Wypozyczenie();
 		session.setAttribute("wypozyczenie", wypozyczenie);
-		saveData();
+		int temp = ksiazka.getIle();
+		if (temp - 1 >= 0 ) {
+			ksiazka.setIle(temp - 1);
+			wypozyczenie.setKsiazka(ksiazka);
+			wypozyczenie.setUzytkownik(u);
+			wypozyczenie.setStatus("oczekiwany");
+			wypozyczenie.setDataOd(dataOdd);
+			wypozyczenie.setDataWyp(dataWypoz);
+			wypozyczenieDAO.create(wypozyczenie);
+			ksiazkaDAO.merge(ksiazka);
+			return PAGE_MY_BORROWS;
+		}
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage("wystąpił błąd podczas zapisu"));
 		return PAGE_STAY_AT_THE_SAME;
 	}
 
@@ -183,82 +185,12 @@ public class WypozyczenieListBB implements Serializable{
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
 		session.setAttribute("wypozyczenie", wypozyczenie);
-		return PAGE_PERSON_EDIT;
+		return PAGE_STAY_AT_THE_SAME;
 	}
 
 	public String deleteWypozyczenie(Wypozyczenie wypozyczenie){
 		wypozyczenieDAO.remove(wypozyczenie);
 		return PAGE_STAY_AT_THE_SAME;
 	}
-	
-	
-	private int id;
-	
-	public int getIdBook() {
-		return id;
-	}
-	
-	public void setIdBook(int id) {
-		this.id = id;
-	}
-	
-	private Ksiazka ksiazka = new Ksiazka();
-	private Uzytkownik uzytkownik = new Uzytkownik();
-	
-	@PostConstruct
-	public void postConstruct() {
-		// A. load person if passed through session
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
-		ksiazka = (Ksiazka) session.getAttribute("ksiazka");
-		uzytkownik = (Uzytkownik) session.getAttribute("user");
 
-		// cleaning: attribute received => delete it from session
-		/*if (ksiazka != null) {
-			session.removeAttribute("ksiazka");
-		}*/
-
-		// if loaded record is to be edited then copy data to properties
-		if (ksiazka != null && ksiazka.getId() != 0) {
-			setIdBook(ksiazka.getId());
-	//		String dataWypoz = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	//		String dataOddan = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		}
-	}
-	
-	private boolean validate() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		boolean result = false;
-		
-		// if no errors
-		if (ctx.getMessageList().isEmpty()) {
-			wypozyczenie.setUzytkownik(uzytkownik);
-			wypozyczenie.setKsiazka(ksiazka);
-			wypozyczenie.setStatus("oczekiwany");
-			wypozyczenie.setDataOd(dataWypoz);
-			wypozyczenie.setDataOd(dataWypoz);
-			
-		}
-
-		return result;
-	}
-	
-	public String saveData() {
-
-
-		if (!validate()) {
-			return PAGE_STAY_AT_THE_SAME;
-		}
-
-		try {
-				wypozyczenieDAO.create(wypozyczenie);
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("wystąpił błąd podczas zapisu"));
-			return PAGE_STAY_AT_THE_SAME;
-		}
-
-		return PAGE_STAY_AT_THE_SAME;
-	}
 }
