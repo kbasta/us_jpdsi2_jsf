@@ -45,7 +45,7 @@
 		<p:dataTable id="userTable" value="#{wypozyczenieListBB.list}" var="borrow" rows="20" 
 					 paginator="true" 
 					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                     paginatorPosition="top"  rowsPerPageTemplate="5,10,15" editable="true">
+                     paginatorPosition="top">
 			<f:facet name="header">
 				Lista wypozyczeń
 			</f:facet>
@@ -79,7 +79,7 @@
 				<h:outputText value="#{borrow.dataWyp}" />
 			</p:column>
 			<p:column headerText="Data oddania">
-				<h:outputText value="#{borrow.dataWyp}" />
+				<h:outputText value="#{borrow.dataOd}" />
 			</p:column>
 			<p:column headerText="Status">
 				<h:outputText value="#{borrow.status}" />
