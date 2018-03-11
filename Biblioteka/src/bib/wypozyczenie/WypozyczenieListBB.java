@@ -173,7 +173,7 @@ public class WypozyczenieListBB implements Serializable{
 			wypozyczenie.setDataOd(dataOdd);
 			wypozyczenie.setDataWyp(dataWypoz);
 			wypozyczenieDAO.create(wypozyczenie);
-			ksiazkaDAO.merge(ksiazka);
+			//ksiazkaDAO.merge(ksiazka);
 			return PAGE_MY_BORROWS;
 		}
 		FacesContext.getCurrentInstance().addMessage(null,

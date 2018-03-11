@@ -21,6 +21,11 @@
 						<h:inputText value="#{ksiazkaListBB.autor}" />
 						<h:outputLabel value="Gatunek:" />
 						<h:inputText value="#{ksiazkaListBB.gatunek}" />
+						<h:outputLabel value="Strona:" />
+						<h:selectOneMenu value = "#{ksiazkaListBB.strona}"> 
+   							<f:selectItem itemValue = "1" itemLabel = "1" /> 
+   							<f:selectItem itemValue = "2" itemLabel = "2" /> 
+						</h:selectOneMenu> 		
 					<h:commandButton value="Szukaj" update="table" />
 					</h:panelGrid>
 				</fieldset>
@@ -29,7 +34,8 @@
 
 		<div
 			>
-			<h:dataTable value="#{ksiazkaListBB.list}" var="book"
+
+			<h:dataTable value="#{ksiazkaListBB.listPagination}" var="book"
 				cellpadding="5" border="1" cellspacing="0">
 
 				<h:column>

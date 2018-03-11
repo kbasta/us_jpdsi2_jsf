@@ -20,7 +20,16 @@ public class KsiazkaListBB {
 	private String tytul;
 	private String autor;
 	private String gatunek;
+	private String strona = "1";
 	
+	public String getStrona() {
+		return strona;
+	}
+
+	public void setStrona(String strona) {
+		this.strona = strona;
+	}
+
 	public String getTytul() {
 		return tytul;
 	}
@@ -69,11 +78,36 @@ public class KsiazkaListBB {
 		if (gatunek != null && gatunek.length() > 0){
 			searchParams.put("gatunek", gatunek);
 		}
+		if (strona != null && strona.length() > 0){
+			searchParams.put("stona", strona);
+		}
 		
 		//2. Get list
 		list = ksiazkaDAO.getList(searchParams);
 		
 		return list;
+	}
+	
+	public List<Ksiazka> getListPagination(){
+		List<Ksiazka> listPagination = null;
+		
+		//1. Prepare search params
+		Map<String,Object> searchParams = new HashMap<String, Object>();
+		
+		if (tytul != null && tytul.length() > 0){
+			searchParams.put("tytul", tytul);
+		}
+		if (autor != null && autor.length() > 0){
+			searchParams.put("autor", autor);
+		}
+		if (gatunek != null && gatunek.length() > 0){
+			searchParams.put("gatunek", gatunek);
+		}
+		
+		//2. Get list
+		listPagination = ksiazkaDAO.getListPagination(searchParams, strona);
+		
+		return listPagination;
 	}
 	
 	public String newKsiazka(){
