@@ -9,11 +9,10 @@
 
 	<ui:define name="content">
 	<div id = "content" class = "col-lg-9">
-		<div
-			>
+		<div>
 			<h:form>
-				<fieldset style="border-radius: 0.2em;">
-					<legend>Opcje wyszukiwania</legend>
+				<fieldset style="border: 0">
+					<legend>Wyszukiwarka</legend>
 					<h:panelGrid columns="6" cellpadding="5">
 						<h:outputLabel value="Tytul:" />
 						<h:inputText value="#{ksiazkaListBB.tytul}" />
@@ -32,15 +31,14 @@
 			</h:form>
 		</div>
 
-		<div
-			>
+		<div>
 
 			<h:dataTable value="#{ksiazkaListBB.listPagination}" var="book"
-				cellpadding="5" border="1" cellspacing="0">
+				cellpadding="10" border="0" cellspacing="10" style="table-layout: fixed; width: 100%;">
 
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Tytuł" />
+						<h:outputText value="Tytuł"/>
 					</f:facet>
 					<h:outputText value="#{book.tytul}" />
 				</h:column>

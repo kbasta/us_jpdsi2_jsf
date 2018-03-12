@@ -11,7 +11,7 @@
 	<div id = "content" class = "col-lg-9">
 			<h3>Witaj <h:outputText value = '#{loginBB.user.imie} #{loginBB.user.nazwisko}'/>!</h3>
 			<h:dataTable value="#{wypozyczenieListBB.listForUser}" var="wyp"
-				cellpadding="10" border="0" cellspacing="10">
+				cellpadding="10" border="0" cellspacing="10" style="table-layout: fixed; width: 100%;">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="NW" />

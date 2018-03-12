@@ -50,7 +50,7 @@ public class WypozyczenieListBB implements Serializable{
 	public void setBookId(int bookid) {
 		this.bookid = bookid;
 	}
-
+	//sprawdz dla pól ksiazki
 	private String status;
 	private String imie;
 	private String nazwisko;
