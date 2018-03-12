@@ -27,7 +27,7 @@ import bib.entities.Wypozyczenie;
 public class WypozyczenieAdminEditBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PAGE_ADMIN_BOOK_LIST = "/pages/admin/books/bookList?faces-redirect=true";
+	private static final String PAGE_ADMIN_BORROWS_LIST = "/pages/admin/borrows/borrowList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	
 	@EJB
@@ -36,8 +36,8 @@ public class WypozyczenieAdminEditBB implements Serializable {
 	UzytkownikDAO uzytkownikDAO;
 	
 	private String idWyp;
-	private String dataOdd;
-	private String dataWyp;
+	private Date dataOdd;
+	private Date dataWyp;
 	private String status;
 	private Ksiazka ksiazka;
 	private Uzytkownik uzytkownik;
@@ -66,19 +66,19 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		this.idWyp = idWyp;
 	}
 
-	public String getDataOdd() {
+	public Date getDataOdd() {
 		return dataOdd;
 	}
 
-	public void setDataOdd(String dataOdd) {
+	public void setDataOdd(Date dataOdd) {
 		this.dataOdd = dataOdd;
 	}
 
-	public String getDataWyp() {
+	public Date getDataWyp() {
 		return dataWyp;
 	}
 
-	public void setDataWyp(String dataWyp) {
+	public void setDataWyp(Date dataWyp) {
 		this.dataWyp = dataWyp;
 	}
 
@@ -126,6 +126,10 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		}
 		// if loaded record is to be edited then copy data to properties
 		if (wypozyczenie != null && wypozyczenie.getIdWyp() != 0) {
+			setUzytkownik(wypozyczenie.getUzytkownik());
+			setKsiazka(wypozyczenie.getKsiazka());
+			setDataWyp(wypozyczenie.getDataWyp());
+			setDataOdd(wypozyczenie.getDataOd());
 			setStatus(wypozyczenie.getStatus());
 		}
 	}
@@ -133,10 +137,17 @@ public class WypozyczenieAdminEditBB implements Serializable {
 	private boolean validate() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		boolean result = false;
-
+		
+		if (status == null || status.trim().length() == 0) {
+			ctx.addMessage(null, new FacesMessage("Wprawdz inny status"));
+		}
 		
 		// if no errors
 		if (ctx.getMessageList().isEmpty()) {
+			wypozyczenie.setUzytkownik(uzytkownik);
+			wypozyczenie.setKsiazka(ksiazka);
+			wypozyczenie.setDataWyp(dataWyp);
+			wypozyczenie.setDataOd(dataOdd);
 			wypozyczenie.setStatus(status); 
 			result = true;
 		}
@@ -169,9 +180,9 @@ public class WypozyczenieAdminEditBB implements Serializable {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("bląd"));
-			return PAGE_ADMIN_BOOK_LIST;
+			return PAGE_ADMIN_BORROWS_LIST;
 		}
 
-		return PAGE_ADMIN_BOOK_LIST;
+		return PAGE_ADMIN_BORROWS_LIST;
 	}
 }

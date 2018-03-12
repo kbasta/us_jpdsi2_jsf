@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/admin-template.xhtml">
+
+	<ui:define name="content">
+	<div id = "content" class = "col-lg-9">
+		<div style="margin-bottom: 1em;">
+			<h:form>
+				<p:growl id="messages" sticky="false" />  
+				<p:fieldset legend="Zmiana statusu" style="border-radius: 0.2em; background-color: #ccc;">
+					<h:panelGrid columns="6" cellpadding="5">
+						<p:outputLabel for="p-ksiazka-autor" value="Autor:" />
+						<p:inputText id="p-ksiazka-autor" value="#{wypozyczenieAdminEditBB.ksiazka.autor}" disabled="true" />
+						<p:outputLabel for="p-ksiazka-tytul" value="Tytuł:" />
+						<p:inputText id="p-ksiazka-tytul" value="#{wypozyczenieAdminEditBB.ksiazka.tytul}" disabled="true"  />
+						<p:outputLabel/><p:outputLabel/>
+						<p:outputLabel for="p-uzytkownik-imie" value="Imie:" />
+						<p:inputText id="p-uzytkownik-imie" value="#{wypozyczenieAdminEditBB.uzytkownik.imie}" disabled="true"  />
+						<p:outputLabel for="p-uzytkownik-nazwisko" value="Nazwisko:" />
+						<p:inputText id="p-uzytkownik-nazwisko" value="#{wypozyczenieAdminEditBB.uzytkownik.nazwisko}" disabled="true"  />
+						<p:outputLabel for="p-uzytkownik-login" value="Login:" />
+						<p:inputText id="p-uzytkownik-login" value="#{wypozyczenieAdminEditBB.uzytkownik.login}" disabled="true"  />
+						<p:outputLabel for="p-dataWyp" value="Data wypozyczenia:" />
+						<p:inputText id="p-dataWyp" value="#{wypozyczenieAdminEditBB.dataWyp}" disabled="true"  />
+						<p:outputLabel for="p-dataOdd" value="Data oddania:" />
+        				<p:calendar id="p-dataOdd" value="#{wypozyczenieAdminEditBB.dataOdd}" pattern="yyyy-MM-dd" mask="true" />
+						<p:outputLabel for="p-status" value="Status:" />
+						<p:selectOneMenu id="p-status" value="#{wypozyczenieAdminEditBB.status}">
+							<f:selectItem itemLabel="Wypozyczony" itemValue="wypozyczony" />
+				            <f:selectItem itemLabel="Oddany" itemValue="oddany" />
+				            <f:selectItem itemLabel="Oczekiwany" itemValue="oczekiwany" />
+			   			</p:selectOneMenu>
+					</h:panelGrid>
+					<p:commandButton value="Zapisz" action="#{wypozyczenieAdminEditBB.saveData()}" 
+			        			icon="ui-icon-disk" update="messages" />
+	    			<p:commandButton value="Powrót" action="#{routeBB.adminBorrows()}" icon="ui-icon-undo" />
+				</p:fieldset>
+			</h:form>
+		</div>
+	</div>
+	<h:messages styleClass="msg info newInfo" />
+	</ui:define>
+
+</ui:composition>
+</html>

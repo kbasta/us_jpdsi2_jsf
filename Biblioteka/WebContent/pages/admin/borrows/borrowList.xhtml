@@ -87,7 +87,9 @@
 			<p:column headerText="Opcje" exportable="false">
 				<h:form>
 				<p:menuButton value="Opcje" >
-
+					<p:menuitem value="Edytuj" outcome="/pages/admin/borrows/borrowEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+			        	<f:param name="p" value="#{borrow.idWyp}" />
+			        </p:menuitem>
 			        <p:separator />
 
 			    </p:menuButton>
