@@ -3,6 +3,7 @@ package bib.wypozyczenie;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -138,8 +139,13 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		boolean result = false;
 		
-		if (status == null || status.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Wprawdz inny status"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String tempDate1 = sdf.format(new Date());
+		
+		if (status.equals("oddany"))
+			if (!sdf.format(dataOdd).equals(tempDate1)) {
+				ctx.addMessage(null, new FacesMessage("Zmień datę oddania na dzisiejszą"));
+				return result;
 		}
 		
 		// if no errors
