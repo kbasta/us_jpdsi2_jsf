@@ -43,7 +43,7 @@
 				<h:form style="float:right">
 					<h:commandLink ajax="false">
 						<p:graphicImage name="template/img/xls-icon.png" width="26"/>
-				        <p:dataExporter type="xls" target="userTable" fileName="reportFile"/>
+				        <p:dataExporter type="xls" target="userTable" fileName="#{txtBook.reportBooks}"/>
 				    </h:commandLink>
 				    <h:commandLink ajax="false">
 				    	<p:graphicImage name="template/img/pdf-icon.png" width="26"/>
