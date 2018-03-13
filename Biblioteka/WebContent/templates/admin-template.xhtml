@@ -7,6 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
+<f:view locale="#{facesContext.externalContext.requestLocale}">
+
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Bilblioteka</title>
@@ -46,5 +48,5 @@
 		</ui:insert>
 	</div>
 </h:body>
-
+</f:view>
 </html>
