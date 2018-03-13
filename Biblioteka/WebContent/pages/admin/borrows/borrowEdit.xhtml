@@ -16,31 +16,31 @@
 				<p:growl id="messages" sticky="false" />  
 				<p:fieldset legend="Zmiana statusu" style="border-radius: 0.2em; background-color: #ccc;">
 					<h:panelGrid columns="6" cellpadding="5">
-						<p:outputLabel for="p-ksiazka-autor" value="Autor:" />
+						<p:outputLabel for="p-ksiazka-autor" value="#{txtBook.author}:" />
 						<p:inputText id="p-ksiazka-autor" value="#{wypozyczenieAdminEditBB.ksiazka.autor}" disabled="true" />
-						<p:outputLabel for="p-ksiazka-tytul" value="Tytuł:" />
+						<p:outputLabel for="p-ksiazka-tytul" value="#{txtBook.title}:" />
 						<p:inputText id="p-ksiazka-tytul" value="#{wypozyczenieAdminEditBB.ksiazka.tytul}" disabled="true"  />
 						<p:outputLabel/><p:outputLabel/>
-						<p:outputLabel for="p-uzytkownik-imie" value="Imie:" />
+						<p:outputLabel for="p-uzytkownik-imie" value="#{txtUser.name}:" />
 						<p:inputText id="p-uzytkownik-imie" value="#{wypozyczenieAdminEditBB.uzytkownik.imie}" disabled="true"  />
-						<p:outputLabel for="p-uzytkownik-nazwisko" value="Nazwisko:" />
+						<p:outputLabel for="p-uzytkownik-nazwisko" value="#{txtUser.surname}:" />
 						<p:inputText id="p-uzytkownik-nazwisko" value="#{wypozyczenieAdminEditBB.uzytkownik.nazwisko}" disabled="true"  />
-						<p:outputLabel for="p-uzytkownik-login" value="Login:" />
+						<p:outputLabel for="p-uzytkownik-login" value="#{txtMain.login}:" />
 						<p:inputText id="p-uzytkownik-login" value="#{wypozyczenieAdminEditBB.uzytkownik.login}" disabled="true"  />
-						<p:outputLabel for="p-dataWyp" value="Data wypozyczenia:" />
+						<p:outputLabel for="p-dataWyp" value="#{txtBorrow.dateBorrow}:" />
 						<p:inputText id="p-dataWyp" value="#{wypozyczenieAdminEditBB.dataWyp}" disabled="true"  />
-						<p:outputLabel for="p-dataOdd" value="Data oddania:" />
+						<p:outputLabel for="p-dataOdd" value="#{txtBorrow.dateGiveBack}:" />
         				<p:calendar id="p-dataOdd" value="#{wypozyczenieAdminEditBB.dataOdd}" pattern="yyyy-MM-dd" mask="true" />
-						<p:outputLabel for="p-status" value="Status:" />
+						<p:outputLabel for="p-status" value="#{txtBorrow.status}:" />
 						<p:selectOneMenu id="p-status" value="#{wypozyczenieAdminEditBB.status}">
-							<f:selectItem itemLabel="Wypozyczony" itemValue="wypozyczony" />
-				            <f:selectItem itemLabel="Oddany" itemValue="oddany" />
-				            <f:selectItem itemLabel="Oczekiwany" itemValue="oczekiwany" />
+							<f:selectItem itemLabel="#{txtBorrow.borrowedStatus}" itemValue="wypozyczony" />
+				            <f:selectItem itemLabel="#{txtBorrow.givedBackStatus}" itemValue="oddany" />
+				            <f:selectItem itemLabel="#{txtBorrow.waitingStatus}" itemValue="oczekiwany" />
 			   			</p:selectOneMenu>
 					</h:panelGrid>
-					<p:commandButton value="Zapisz" action="#{wypozyczenieAdminEditBB.saveData()}" 
+					<p:commandButton value="#{txtMain.save}" action="#{wypozyczenieAdminEditBB.saveData()}" 
 			        			icon="ui-icon-disk" update="messages" />
-	    			<p:commandButton value="Powrót" action="#{routeBB.adminBorrows()}" icon="ui-icon-undo" />
+	    			<p:commandButton value="#{txtMain.cancel}" action="#{routeBB.adminBorrows()}" icon="ui-icon-undo" />
 				</p:fieldset>
 			</h:form>
 		</div>

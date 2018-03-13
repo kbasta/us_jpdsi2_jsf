@@ -14,20 +14,20 @@
 		<div style="margin-bottom: 1em;">
 			<h:form>
 				<p:growl id="messages" sticky="false" />  
-				<p:fieldset legend="Edycja profilu" style="border-radius: 0.2em; background-color: #ccc;">
+				<p:fieldset legend="#{txtBook.addNewBook}" style="border-radius: 0.2em; background-color: #ccc;">
 					<h:panelGrid columns="2" cellpadding="5">
-						<p:outputLabel for="p-tytul" value="Tytuł:" />
+						<p:outputLabel for="p-tytul" value="#{txtBook.title}:" />
 						<p:inputText id="p-tytul" value="#{ksiazkaAdminEditBB.tytul}" />
-						<p:outputLabel for="p-autor" value="Autor:" />
+						<p:outputLabel for="p-autor" value="#{txtBook.author}:" />
 						<p:inputText id="p-autor" value="#{ksiazkaAdminEditBB.autor}" />
-						<p:outputLabel for="p-gatunek" value="Gatunek:" />
+						<p:outputLabel for="p-gatunek" value="#{txtBook.genre}:" />
 						<p:inputText id="p-gatunek" value="#{ksiazkaAdminEditBB.gatunek}" />
-						<p:outputLabel for="p-ile" value="Liczba sztuk:" />
+						<p:outputLabel for="p-ile" value="#{txtBook.howMany}:" />
 						<p:inputText id="p-ile" value="#{ksiazkaAdminEditBB.ile}"/>	
 					</h:panelGrid>
-					<p:commandButton value="Zapisz" action="#{ksiazkaAdminEditBB.saveData()}" 
+					<p:commandButton value="#{txtMain.save}" action="#{ksiazkaAdminEditBB.saveData()}" 
 			        			icon="ui-icon-disk" update="messages" />
-	    			<p:commandButton value="Powrót" action="#{routeBB.adminBooks()}" icon="ui-icon-undo" />
+	    			<p:commandButton value="#{txtMain.cancel}" action="#{routeBB.adminBooks()}" icon="ui-icon-undo" />
 				</p:fieldset>
 			</h:form>
 		</div>

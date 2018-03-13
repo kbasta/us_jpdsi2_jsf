@@ -13,14 +13,14 @@
 	<div id = "content" class = "col-lg-9">
 		<div style="margin-bottom: 1em;">
 			<h:form>
-				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+				<p:fieldset legend="#{txtMain.searchBar}" styleClass="searchPrimeForm" 
 							toggleable="true" toggleSpeed="350" collapsed="true">
 					<h:panelGrid columns="6" cellpadding="5">
-						<p:outputLabel value="Imie:" />
+						<p:outputLabel value="#{txtUser.name}:" />
 						<p:inputText value="#{uzytkownikListBB.imie}" />
-						<p:outputLabel value="Nazwisko:" />
+						<p:outputLabel value="#{txtUser.surname}:" />
 						<p:inputText value="#{uzytkownikListBB.nazwisko}" />
-						<p:outputLabel value="Login:" />
+						<p:outputLabel value="#{txtMain.login}:" />
 						<p:inputText value="#{uzytkownikListBB.login}" />
 					<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
 					</h:panelGrid>
@@ -33,29 +33,29 @@
 					 paginator="true" 
 					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                      paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
-			<f:facet name="header">
-				Lista uzytkowników
+			<f:facet name="header" >
+				<h:outputText value="#{txtUser.userList}" />
 			</f:facet>
-			<p:column headerText="Id">
+			<p:column headerText="#{txtMain.id}">
 				<h:outputText value="#{user.id}" />
 			</p:column>
-			<p:column headerText="Imie">
+			<p:column headerText="#{txtUser.name}">
 				<h:outputText value="#{user.imie}" />
 			</p:column>
-			<p:column headerText="Nazwisko">
+			<p:column headerText="#{txtUser.surname}">
 				<h:outputText value="#{user.nazwisko}" />
 			</p:column>
-			<p:column headerText="Kara">
-				<h:outputText value="#{user.kara}" />
+			<p:column headerText="#{txtMain.login}">
+				<h:outputText value="#{user.login}" />
 			</p:column>
-			<p:column headerText="Opcje">
+			<p:column headerText="#{txtMain.options}">
 			<h:form>
-			<p:menuButton value="Opcje">
-		        <p:menuitem value="Edytuj" outcome="/pages/admin/users/userEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+			<p:menuButton value="#{txtMain.options}">
+		        <p:menuitem value="#{txtMain.edit}" outcome="/pages/admin/users/userEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
 		        	<f:param name="p" value="#{user.id}" />
 		        </p:menuitem>
 		        <p:separator />
-		        <p:menuitem value="Usuń" actionListener="#{uzytkownikListBB.deleteUzytkownik(user)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close"/>    
+		        <p:menuitem value="#{txtMain.delete}" actionListener="#{uzytkownikListBB.deleteUzytkownik(user)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close"/>    
 		    </p:menuButton>
 		    </h:form>
 			</p:column>

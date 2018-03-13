@@ -7,7 +7,6 @@
 		<img src = "#{resource['template:img/book.png']}"/>
 	</div>
 	<div id="userInfo">
-		<h:outputText value="Zalogowany: #{loginBB.user.imie} #{loginBB.user.nazwisko}
-							 #{loginBB.user.id} #{loginBB.user.rola}" />
+		<h:outputText value="#{txtMain.logged}: #{loginBB.user.imie} #{loginBB.user.nazwisko}" />
 		</div>
 </ui:composition>

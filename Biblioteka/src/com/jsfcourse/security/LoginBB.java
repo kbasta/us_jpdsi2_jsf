@@ -3,10 +3,12 @@ package com.jsfcourse.security;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import bib.dao.UzytkownikDAO;
@@ -39,19 +41,26 @@ public class LoginBB {
 		this.pass = pass;
 	}
 
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
+	
 	public boolean validateData() {
 		boolean result = true;
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		// check if not empty
 		if (login == null || login.length() == 0) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"podaj login", "null"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("setLogin"), null));
 		}
 
 		if (pass == null || pass.length() == 0) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"podaj hasło", "null"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("setPasswd"), null));
 		}
 
 		if (ctx.getMessageList().isEmpty()) {
@@ -77,8 +86,8 @@ public class LoginBB {
 
 		// 3. if bad login or password - stay with error info
 		if (user == null) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Niepoprawny login lub hasło", null));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("wrongLoginProp"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 

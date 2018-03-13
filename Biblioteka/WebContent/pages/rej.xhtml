@@ -11,19 +11,19 @@
 		<div id="logowanie">
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
-					<h:outputLabel for="imie" value="Imie:" />
+					<h:outputLabel for="imie" value="#{txtUser.name}:" />
 					<h:inputText id="imie" value="#{uzytkownikEditBB.imie}" />
-					<h:outputLabel for="nazwisko" value="Nazwisko:" />
+					<h:outputLabel for="nazwisko" value="#{txtUser.surname}" />
 					<h:inputText id="nazwisko" value="#{uzytkownikEditBB.nazwisko}" />
-					<h:outputLabel for="login" value="Login:" />
+					<h:outputLabel for="login" value="#{txtMain.login}" />
 					<h:inputText id="login" value="#{uzytkownikEditBB.login}" />
-					<h:outputLabel for="haslo" value="Hasło:" />
+					<h:outputLabel for="haslo" value="#{txtMain.passwd}" />
 					<h:inputSecret id="haslo" value="#{uzytkownikEditBB.haslo}" />
 		
 				</h:panelGrid>
 				<br/>
-				<h:commandButton styleClass="myDefaultButton odstepPrzyciskiRejestracja" value="Zarejestruj" action="#{uzytkownikEditBB.saveData()}" />
-				<h:commandButton styleClass="myDefaultButton" value="Powrót" action="#{routeBB.login()}" />
+				<h:commandButton styleClass="myDefaultButton odstepPrzyciskiRejestracja" value="#{txtMain.signUp}" action="#{uzytkownikEditBB.saveData()}" />
+				<h:commandButton styleClass="myDefaultButton" value="#{txtMain.cancel}" action="#{routeBB.login()}" />
 			</h:form>
 		</div>
 		<div id="msgRejestracja">

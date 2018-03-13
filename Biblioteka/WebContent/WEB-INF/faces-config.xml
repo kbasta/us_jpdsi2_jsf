@@ -10,9 +10,32 @@
    <base-name>resources.textMain</base-name>
    <var>txtMain</var>
   </resource-bundle>
-  
+  <resource-bundle>
+   <base-name>resources.textError</base-name>
+   <var>txtError</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textDesc</base-name>
+   <var>txtDesc</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textBook</base-name>
+   <var>txtBook</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textUser</base-name>
+   <var>txtUser</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textBorrow</base-name>
+   <var>txtBorrow</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textRules</base-name>
+   <var>txtRules</var>
+  </resource-bundle>
   <locale-config>
-   <default-locale>en</default-locale>
+   <default-locale>pl_PL</default-locale>
   </locale-config>
  </application>
 </faces-config>

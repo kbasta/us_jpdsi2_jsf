@@ -30,9 +30,9 @@
 				<ul>
 					<h:form style="display:inline;">
 						<li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="Ksiazki" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="Wypozyczenia" action="#{routeBB.adminBorrows()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="#{txtMain.books}" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="#{txtMain.borrows}" action="#{routeBB.adminBorrows()}" styleClass="menuPrimeButtonsWidth"/></li>
+						<li><p:commandButton value="#{txtMain.signOut}" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
 					</h:form>
 				</ul>
 			</div>

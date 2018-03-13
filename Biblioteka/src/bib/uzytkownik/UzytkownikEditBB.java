@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,20 @@ public class UzytkownikEditBB implements Serializable {
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 			.getExternalContext().getSession(true);
 	private Uzytkownik logedUser = (Uzytkownik) session.getAttribute("user");
+	
+	@ManagedProperty("#{txtUser}")
+	private ResourceBundle txtUser;
+	
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtUser(ResourceBundle txtUser) {
+		this.txtUser = txtUser;
+	}
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
 	
 	@EJB
 	UzytkownikDAO uzytkownikDAO;
@@ -143,20 +159,26 @@ public class UzytkownikEditBB implements Serializable {
 		boolean result = false;
 
 		if (imie == null || imie.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Imie wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtUser.getString("nameRequired"), null));
 		}
 		if (nazwisko == null || nazwisko.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Nazwisko wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtUser.getString("surnameRequired"), null));
 		}
 		if (login == null || login.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Login wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtUser.getString("loginRequired"), null));
 		}
 		if (haslo == null || haslo.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Hasło wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtUser.getString("passwdRequired"), null));
 		}
 		
 
-		if (uzytkownikDAO.getLoginForRegister(login) ) ctx.addMessage(null, new FacesMessage("Podany login jest juz zajęty"));
+		if (uzytkownikDAO.getLoginForRegister(login) ) 
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("loginOccupied"), null));
 
 
 		// if no errors
@@ -178,7 +200,8 @@ public class UzytkownikEditBB implements Serializable {
 		// no Uzytkownik object passed
 		if (uzytkownik == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Błędne uzycie systemu"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownSystemError"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
@@ -197,7 +220,8 @@ public class UzytkownikEditBB implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Błąd zapisu danych"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownDatabaseError"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 		return PAGE_PERSON_LIST;

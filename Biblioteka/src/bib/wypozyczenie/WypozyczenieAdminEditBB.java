@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,13 @@ public class WypozyczenieAdminEditBB implements Serializable {
 
 	private static final String PAGE_ADMIN_BORROWS_LIST = "/pages/admin/borrows/borrowList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+	
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
 	
 	@EJB
 	WypozyczenieDAO wypozyczenieDAO;
@@ -144,7 +153,8 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		
 		if (status.equals("oddany"))
 			if (!sdf.format(dataOdd).equals(tempDate1)) {
-				ctx.addMessage(null, new FacesMessage("Zmień datę oddania na dzisiejszą"));
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						txtError.getString("changeGivedBackDate"), null));
 				return result;
 		}
 		
@@ -166,7 +176,8 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		// no Wypozyczenie object passed
 		if (wypozyczenie == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Błędne uzycie systemu"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownSystemError"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
@@ -185,7 +196,8 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("bląd"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownDatabaseError"), null));
 			return PAGE_ADMIN_BORROWS_LIST;
 		}
 

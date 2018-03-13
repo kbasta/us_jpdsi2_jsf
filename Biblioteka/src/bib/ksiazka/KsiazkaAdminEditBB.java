@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,13 @@ public class KsiazkaAdminEditBB implements Serializable {
 
 	private static final String PAGE_ADMIN_BOOK_LIST = "/pages/admin/books/bookList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+	
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
 	
 	@EJB
 	KsiazkaDAO ksiazkaDAO;
@@ -118,20 +127,26 @@ public class KsiazkaAdminEditBB implements Serializable {
 		boolean result = false;
 
 		if (autor == null || autor.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Autor wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("authorRequired"), null));
 		}
 		if (tytul == null || tytul.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Tytuł wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("titleRequired"), null));
 		}
 		if (gatunek == null || gatunek.trim().length() == 0) {
-			ctx.addMessage(null, new FacesMessage("Gatunek wymagane"));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("genreRequired"), null));
 		}
-		if ((Integer)ile == null || ile < 0) {
-			ctx.addMessage(null, new FacesMessage("Liczba sztuk wymagane"));
+		if ((Integer)ile == null || ile <= 0) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("quantityRequired"), null));
 		}
 		
 		if (id == null)
-			if (ksiazkaDAO.getBookForAddNew(tytul, autor) ) ctx.addMessage(null, new FacesMessage("Wprowadz inna ksiazke lub edytuj nowa"));
+			if (ksiazkaDAO.getBookForAddNew(tytul, autor)) 
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						txtError.getString("enterAnotherBook"), null));
 
 		// if no errors
 		if (ctx.getMessageList().isEmpty()) {
@@ -150,7 +165,8 @@ public class KsiazkaAdminEditBB implements Serializable {
 		// no Ksiazka object passed
 		if (ksiazka == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Błędne uzycie systemu"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownSystemError"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
@@ -169,7 +185,8 @@ public class KsiazkaAdminEditBB implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("bląd"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, 
+							txtError.getString("unknownDatabaseError"), null));
 			return PAGE_ADMIN_BOOK_LIST;
 		}
 

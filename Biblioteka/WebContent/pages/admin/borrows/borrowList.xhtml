@@ -13,30 +13,30 @@
 	<div id = "content" class = "col-lg-9">
 		<div style="margin-bottom: 1em;">
 			<h:form>
-				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+				<p:fieldset legend="#{txtMain.searchBar}" styleClass="searchPrimeForm" 
 							toggleable="true" toggleSpeed="350" collapsed="true">
 					<h:panelGrid columns="6" cellpadding="5">
-       					<p:outputLabel value="Imie:" />
+       					<p:outputLabel value="#{txtUser.name}:" />
 						<p:inputText value="#{wypozyczenieListBB.imie}" />
-						<p:outputLabel value="Nazwisko:" />
+						<p:outputLabel value="#{txtUser.surname}:" />
 						<p:inputText value="#{wypozyczenieListBB.nazwisko}" />
-						<p:outputLabel value="Login:" />
+						<p:outputLabel value="#{txtMain.login}:" />
 						<p:inputText value="#{wypozyczenieListBB.login}" />
-       					<p:outputLabel value="Autor:" />
+       					<p:outputLabel value="#{txtBook.author}:" />
 						<p:inputText value="#{wypozyczenieListBB.autor}" />
-       					<p:outputLabel value="Tytuł:" />
+       					<p:outputLabel value="#{txtBook.title}:" />
 						<p:inputText value="#{wypozyczenieListBB.tytul}" />
 						<p:outputLabel /><p:outputLabel />
-						<p:outputLabel value="Status:" />
+						<p:outputLabel value="#{txtBorrow.status}:" />
 						<p:selectOneMenu value="#{wypozyczenieListBB.status}" >
 							<f:selectItem itemLabel="---" itemValue="" />
-            				<f:selectItem itemLabel="Wypozyczony" itemValue="wypo" />
-				            <f:selectItem itemLabel="Oddany" itemValue="odd" />
-				            <f:selectItem itemLabel="Oczekiwany" itemValue="ocze" />
+            				<f:selectItem itemLabel="#{txtBorrow.borrowedStatus}" itemValue="wypo" />
+				            <f:selectItem itemLabel="#{txtBorrow.givedBackStatus}" itemValue="odd" />
+				            <f:selectItem itemLabel="#{txtBorrow.waitingStatus}" itemValue="ocze" />
        					</p:selectOneMenu>
        					<p:outputLabel /><p:outputLabel />
        					<p:outputLabel /><p:outputLabel />
-						<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
+						<p:commandButton value="#{txtMain.search}" ajax="true" update="userTable"/>
 					</h:panelGrid>
 				</p:fieldset>
 			</h:form>
@@ -47,7 +47,7 @@
 					 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                      paginatorPosition="top">
 			<f:facet name="header">
-				Lista wypozyczeń
+				<h:outputText value="#{txtBorrow.borrowList}" />
 			</f:facet>
 	         <f:facet name="{Exporters}">
 				<h:form style="float:right">
@@ -57,37 +57,37 @@
 				    </h:commandLink>
 			    </h:form>
 	        </f:facet>
-			<p:column headerText="Numer wypozyczenia">
+			<p:column headerText="#{txtBorrow.numberBorrow}">
 				<h:outputText value="#{borrow.idWyp}" />
 			</p:column>
-			<p:column headerText="Imię">
+			<p:column headerText="#{txtUser.name}">
 				<h:outputText value="#{borrow.uzytkownik.imie}" />
 			</p:column>
-			<p:column headerText="Nazwisko">
+			<p:column headerText="#{txtUser.surname}">
 				<h:outputText value="#{borrow.uzytkownik.nazwisko}" />
 			</p:column>
-			<p:column headerText="Login">
+			<p:column headerText="#{txtMain.login}">
 				<h:outputText value="#{borrow.uzytkownik.login}" />
 			</p:column>
-			<p:column headerText="Autor">
+			<p:column headerText="#{txtBook.author}">
 				<h:outputText value="#{borrow.ksiazka.autor}" />
 			</p:column>
-			<p:column headerText="Tytuł">
+			<p:column headerText="#{txtBook.title}">
 				<h:outputText value="#{borrow.ksiazka.tytul}" />
 			</p:column>
-			<p:column headerText="Data wypozyczenia">
+			<p:column headerText="#{txtBorrow.dateBorrow}">
 				<h:outputText value="#{borrow.dataWyp}" />
 			</p:column>
-			<p:column headerText="Data oddania">
+			<p:column headerText="#{txtBorrow.dateGiveBack}">
 				<h:outputText value="#{borrow.dataOd}" />
 			</p:column>
-			<p:column headerText="Status">
+			<p:column headerText="#{txtBorrow.status}">
 				<h:outputText value="#{borrow.status}" />
 			</p:column>
-			<p:column headerText="Opcje" exportable="false">
+			<p:column headerText="#{txtMain.options}" exportable="false">
 				<h:form>
-				<p:menuButton value="Opcje" >
-					<p:menuitem value="Edytuj" outcome="/pages/admin/borrows/borrowEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+				<p:menuButton value="#{txtMain.options}" >
+					<p:menuitem value="#{txtBorrow.changeStatus}" outcome="/pages/admin/borrows/borrowEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
 			        	<f:param name="p" value="#{borrow.idWyp}" />
 			        </p:menuitem>
 			        <p:separator />

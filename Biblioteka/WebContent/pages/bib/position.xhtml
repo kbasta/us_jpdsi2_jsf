@@ -9,42 +9,42 @@
 
 	<ui:define name="content">
 	<div id = "content" class = "col-lg-9">
-			<h3>Witaj <h:outputText value = '#{loginBB.user.imie} #{loginBB.user.nazwisko}'/>!</h3>
+			<h3><h:outputText value = '#{txtMain.hello} #{loginBB.user.imie} #{loginBB.user.nazwisko}'/>!</h3>
 			<h:dataTable value="#{wypozyczenieListBB.listForUser}" var="wyp"
 				cellpadding="10" border="0" cellspacing="10" style="table-layout: fixed; width: 100%;">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="NW" />
+						<h:outputText value="#{txtBook.isbn}" />
 					</f:facet>
 					<h:outputText value="#{wyp.idWyp}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Tytuł" />
+						<h:outputText value="#{txtBook.title}" />
 					</f:facet>
 					<h:outputText value="#{wyp.ksiazka.tytul}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Autor" />
+						<h:outputText value="#{txtBook.author}" />
 					</f:facet>
 					<h:outputText value="#{wyp.ksiazka.autor}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Data wypozyczenia" />
+						<h:outputText value="#{txtBorrow.dateBorrow}" />
 					</f:facet>
 					<h:outputText value="#{wyp.dataWyp}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Data oddania" />
+						<h:outputText value="#{txtBorrow.dateGiveBack}" />
 					</f:facet>
 					<h:outputText value="#{wyp.dataOd}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Status" />
+						<h:outputText value="#{txtBorrow.status}" />
 					</f:facet>
 					<h:outputText value="#{wyp.status}" />
 				</h:column>

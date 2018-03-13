@@ -8,11 +8,13 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.sql.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,13 @@ public class WypozyczenieListBB implements Serializable{
 	private static final String PAGE_MY_BORROWS = "position?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
+	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 			.getExternalContext().getSession(true);
 	public Uzytkownik u = (Uzytkownik) session.getAttribute("user");
@@ -177,7 +186,8 @@ public class WypozyczenieListBB implements Serializable{
 			return PAGE_MY_BORROWS;
 		}
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage("wystąpił błąd podczas zapisu"));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						txtError.getString("unknownDatabaseError"), null));
 		return PAGE_STAY_AT_THE_SAME;
 	}
 

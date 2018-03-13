@@ -12,20 +12,20 @@
 		<div>
 			<h:form>
 				<fieldset style="border: 0">
-					<legend>Wyszukiwarka</legend>
+					<legend><h:outputText value="#{txtMain.searchBar}" /></legend>
 					<h:panelGrid columns="6" cellpadding="5">
-						<h:outputLabel value="Tytul:" />
+						<h:outputLabel value="#{txtBook.title}:" />
 						<h:inputText value="#{ksiazkaListBB.tytul}" />
-						<h:outputLabel value="Autor:" />
+						<h:outputLabel value="#{txtBook.author}:" />
 						<h:inputText value="#{ksiazkaListBB.autor}" />
-						<h:outputLabel value="Gatunek:" />
+						<h:outputLabel value="#{txtBook.genre}:" />
 						<h:inputText value="#{ksiazkaListBB.gatunek}" />
-						<h:outputLabel value="Strona:" />
+						<h:outputLabel value="#{txtMain.page}:" />
 						<h:selectOneMenu value = "#{ksiazkaListBB.strona}"> 
    							<f:selectItem itemValue = "1" itemLabel = "1" /> 
    							<f:selectItem itemValue = "2" itemLabel = "2" /> 
 						</h:selectOneMenu> 		
-					<h:commandButton value="Szukaj" update="table" />
+					<h:commandButton value="#{txtMain.search}" update="table" />
 					</h:panelGrid>
 				</fieldset>
 			</h:form>
@@ -38,38 +38,38 @@
 
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Tytuł"/>
+						<h:outputText value="#{txtBook.title}"/>
 					</f:facet>
 					<h:outputText value="#{book.tytul}" />
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Autor" />
+						<h:outputText value="#{txtBook.author}" />
 					</f:facet>
 					<h:outputText value="#{book.autor}" />
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Gatunek" />
+						<h:outputText value="#{txtBook.genre}" />
 					</f:facet>
 					<h:outputText value="#{book.gatunek}" />
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Ile na stanie?" />
+						<h:outputText value="#{txtBook.howMany}" />
 					</f:facet>
 					<h:outputText value="#{book.ile}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Wypozycz" />
+						<h:outputText value="#{txtBorrow.borrow}" />
 					</f:facet>
 					<h:form>
-						<h:commandButton value="Wypozycz"
+						<h:commandButton value="#{txtBorrow.borrow}"
 							action="#{wypozyczenieListBB.newWypozyczenie(book)}" />
 					</h:form>
 				</h:column>

@@ -13,16 +13,16 @@
 	<div id = "content" class = "col-lg-9">
 		<div style="margin-bottom: 1em;">
 			<h:form>
-				<p:fieldset legend="Wyszukiwarka" styleClass="searchPrimeForm" 
+				<p:fieldset legend="#{txtMain.searchBar}" styleClass="searchPrimeForm" 
 							toggleable="true" toggleSpeed="350" collapsed="true">
 					<h:panelGrid columns="6" cellpadding="5">
-						<p:outputLabel value="Autor:" />
+						<p:outputLabel value="#{txtBook.author}:" />
 						<p:inputText value="#{ksiazkaListBB.autor}" />
-						<p:outputLabel value="Tytuł:" />
+						<p:outputLabel value="#{txtBook.title}:" />
 						<p:inputText value="#{ksiazkaListBB.tytul}" />
-						<p:outputLabel value="Gatunek:" />
+						<p:outputLabel value="#{txtBook.genre}:" />
 						<p:inputText value="#{ksiazkaListBB.gatunek}" />
-					<p:commandButton value="Szukaj" ajax="true" update="userTable"/>
+					<p:commandButton value="#{txtMain.search}" ajax="true" update="userTable"/>
 					</h:panelGrid>
 				</p:fieldset>
 			</h:form>
@@ -33,10 +33,10 @@
 					 paginatorTemplate="{paginatorTopLeft} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                      paginatorPosition="top"  rowsPerPageTemplate="5,10,15">
 			<f:facet name="header">
-				Lista ksiazek
+				<h:outputText value="#{txtBook.bookList}" />
 			</f:facet>
 	        <f:facet name="{paginatorTopLeft}">
-	            <p:commandButton value="Dodaj nową pozycje" action="#{ksiazkaListBB.newKsiazka()}"
+	            <p:commandButton value="#{txtBook.addNewBook}" action="#{ksiazkaListBB.newKsiazka()}"
 	            				 icon="ui ui-sync" process="@this" ajax="true" style="float:left"/>
 	        </f:facet>
 	         <f:facet name="{Exporters}">
@@ -51,29 +51,29 @@
 				    </h:commandLink>
 			    </h:form>
 	        </f:facet>
-			<p:column headerText="Pseudo ISBN">
+			<p:column headerText="#{txtBook.isbn}">
 				<h:outputText value="#{book.id}" />
 			</p:column>
-			<p:column headerText="Autor">
+			<p:column headerText="#{txtBook.author}">
 				<h:outputText value="#{book.autor}" />
 			</p:column>
-			<p:column headerText="Tytuł">
+			<p:column headerText="#{txtBook.title}">
 				<h:outputText value="#{book.tytul}" />
 			</p:column>
-			<p:column headerText="Gatunek">
+			<p:column headerText="#{txtBook.genre}">
 				<h:outputText value="#{book.gatunek}" />
 			</p:column>
-			<p:column headerText="Ile na stanie">
+			<p:column headerText="#{txtBook.howMany}">
 				<h:outputText value="#{book.ile}" />
 			</p:column>
-			<p:column headerText="Opcje" exportable="false">
+			<p:column headerText="#{txtMain.options}" exportable="false">
 				<h:form>
-				<p:menuButton value="Opcje" >
-			        <p:menuitem value="Edytuj" outcome="/pages/admin/books/bookEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
+				<p:menuButton value="#{txtMain.options}" >
+			        <p:menuitem value="#{txtMain.edit}" outcome="/pages/admin/books/bookEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
 			        	<f:param name="p" value="#{book.id}" />
 			        </p:menuitem>
 			        <p:separator />
-			        <p:menuitem value="Usuń" actionListener="#{ksiazkaListBB.deleteKsiazka(book)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close">
+			        <p:menuitem value="#{txtMain.delete}" actionListener="#{ksiazkaListBB.deleteKsiazka(book)}" process="@this" ajax="true" update="userTable" icon="ui-icon-close">
 			        </p:menuitem>
 			    </p:menuButton>
 			    </h:form>

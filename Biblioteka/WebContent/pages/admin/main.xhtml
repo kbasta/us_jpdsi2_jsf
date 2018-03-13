@@ -11,8 +11,8 @@
 
 		<h:messages id="msg" />
 
-		<h4 style='text-align:center;'>Witaj w panelu administracyjnym Biblioteka Basta</h4><br/>
-		<p>Tutaj mozesz zarzadzać uzytkkownikami, ksiazkami i wypozyczeniami.</p>
+		<h4 style='text-align:center;'><h:outputText value="#{txtDesc.adminGreetings}" /></h4><br/>
+		<p><h:outputText value="#{txtDesc.adminPanelAbout}" /></p>
 	</ui:define>
 
 </ui:composition>

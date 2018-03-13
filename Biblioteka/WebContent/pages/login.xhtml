@@ -12,21 +12,22 @@
 		<div id="logowanie">
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
-					<h:outputLabel for="login" value="login:" />
+					<h:outputLabel for="login" value="#{txtMain.login}:" />
 					<h:inputText id="login" value="#{loginBB.login}" />
-					<h:outputLabel for="pass" value="hasło:" />
+					<h:outputLabel for="pass" value="#{txtMain.passwd}:" />
 					<h:inputSecret id="pass" value="#{loginBB.pass}" />
 				</h:panelGrid>
 			
 				
 				<br/>
-				<h:commandButton styleClass="myDefaultButton" value="Zaloguj" action="#{loginBB.doLogin()}" update="msg" />
+				<h:commandButton styleClass="myDefaultButton" value="#{txtMain.signIn}" action="#{loginBB.doLogin()}" update="msg" />
 	
 			</h:form>
 		</div>
 		<div id="rejestracja">
-			<p>Jesli nie masz u nas konta. Mozesz się zarejestorać klikając w przycisk ponizej</p>
-			<h:form><h:commandButton styleClass="myDefaultButton" value="Zarejestruj" action="#{uzytkownikListBB.newUzytkownik()}"/></h:form>
+			<p>
+			<h:outputText value="#{txtDesc.adv1}"/></p>
+			<h:form><h:commandButton styleClass="myDefaultButton" value="#{txtMain.signUp}" action="#{uzytkownikListBB.newUzytkownik()}"/></h:form>
 		<div id="messagesBoxLogin">
 			<h:messages styleClass="msg info newInfo" />
 		</div>
