@@ -50,6 +50,13 @@ body{
 	float: right;
 }
 
+.borrowInfo{
+	display: block;
+	float: right;
+	position: Relative;
+	right: 32%;
+}
+
 .menuPrimeButtonsWidth{
 	width: 180px;
 }

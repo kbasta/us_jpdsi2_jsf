@@ -187,7 +187,7 @@ public class WypozyczenieListBB implements Serializable{
 		}
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, 
-						txtError.getString("unknownDatabaseError"), null));
+						txtError.getString("cantBorrowBook"), null));
 		return PAGE_STAY_AT_THE_SAME;
 	}
 
