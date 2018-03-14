@@ -13,8 +13,19 @@
 		<h:form>
 			<fieldset style="border: 0">
 				<legend><h:outputText value="#{txtMain.searchBar}" /></legend>
-				<h:panelGrid columns="6" cellpadding="5" id="pa">
-
+				<h:panelGrid columns="6" cellpadding="5">
+					<h:outputLabel value="#{txtBook.title}:" />
+					<h:inputText value="#{wypozyczenieListBB.tytul}" />
+					<h:outputLabel value="#{txtBook.author}:" />
+					<h:inputText value="#{wypozyczenieListBB.autor}" />
+					<h:outputLabel value="#{txtBorrow.status}:" />
+					<h:selectOneMenu value="#{wypozyczenieListBB.status}" >
+						<f:selectItem itemLabel="---" itemValue="" />
+           				<f:selectItem itemLabel="#{txtBorrow.borrowedStatus}" itemValue="wypo" />
+			            <f:selectItem itemLabel="#{txtBorrow.givedBackStatus}" itemValue="odd" />
+			            <f:selectItem itemLabel="#{txtBorrow.waitingStatus}" itemValue="ocze" />
+       				</h:selectOneMenu>	
+					<h:commandButton value="#{txtMain.search}" update="table" />
 				</h:panelGrid>
 			</fieldset>
 		</h:form>

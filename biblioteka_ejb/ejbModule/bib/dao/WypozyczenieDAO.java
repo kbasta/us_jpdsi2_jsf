@@ -171,6 +171,36 @@ public class WypozyczenieDAO {
 			}
 			where += "u.id = :userid ";
 		}
+		
+		String status = (String) searchParams.get("status");
+		if (status != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "w.status like :status ";
+		}
+		
+		String autor = (String) searchParams.get("autor");
+		if (autor != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "k.autor like :autor ";
+		}
+		
+		String tytul = (String) searchParams.get("tytul");
+		if (tytul != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "k.tytul like :tytul ";
+		}
 	
 		// ... other parameters ... 
 
@@ -180,6 +210,15 @@ public class WypozyczenieDAO {
 		// 3. Set configured parameters
 		if (userid != 0) {
 			query.setParameter("userid", userid);
+		}
+		if (status != null) {
+			query.setParameter("status", "%"+status+"%");
+		}
+		if (autor != null) {
+			query.setParameter("autor", "%"+autor+"%");
+		}
+		if (tytul != null) {
+			query.setParameter("tytul", "%"+tytul+"%");
 		}
 		
 		// ... other parameters ... 

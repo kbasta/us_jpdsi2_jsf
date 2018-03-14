@@ -187,6 +187,9 @@ public class WypozyczenieListBB implements Serializable{
 		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
 		
+		searchParams.put("autor", autor);
+		searchParams.put("tytul", tytul);
+		searchParams.put("status", status);
 		searchParams.put("userid", userid);
 		
 		//2. Get list
