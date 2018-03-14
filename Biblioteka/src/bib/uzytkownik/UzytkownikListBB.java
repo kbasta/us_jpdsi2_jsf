@@ -49,8 +49,6 @@ public class UzytkownikListBB implements Serializable  {
 		this.login = login;
 	}
 
-	//Dependency injection
-	// - no setter method needed in this case
 	@EJB
 	UzytkownikDAO uzytkownikDAO;
 	

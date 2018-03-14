@@ -27,10 +27,6 @@ public class UzytkownikEditBB implements Serializable {
 	private static final String PAGE_PERSON_LIST = "/pages/login";
 	private static final String PAGE_ADMIN_USER_LIST = "/pages/admin/users/userList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-
-	HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-			.getExternalContext().getSession(true);
-	private Uzytkownik logedUser = (Uzytkownik) session.getAttribute("user");
 	
 	@ManagedProperty("#{txtUser}")
 	private ResourceBundle txtUser;
@@ -107,9 +103,6 @@ public class UzytkownikEditBB implements Serializable {
 		this.kara = kara;
 	}
 
-
-
-	// object to be edited/inserted
 	private Uzytkownik uzytkownik = null;
 
 	@PostConstruct
@@ -131,19 +124,16 @@ public class UzytkownikEditBB implements Serializable {
 					.getCurrentInstance().getExternalContext().getRequest();
 			id = req.getParameter("p");
 			if (id != null) {
-				// parse id
 				Integer ident = null;
 				try {
 					ident = Integer.parseInt(id);
 				} catch (NumberFormatException e) {
 				}
 				if (ident != null) {
-					// if parsing successful
 					uzytkownik = uzytkownikDAO.find(ident);
 				}
 			}
 		}
-		// if loaded record is to be edited then copy data to properties
 		if (uzytkownik != null && uzytkownik.getId() != null) {
 			setImie(uzytkownik.getImie());
 			setNazwisko(uzytkownik.getNazwisko());
@@ -175,13 +165,10 @@ public class UzytkownikEditBB implements Serializable {
 					txtUser.getString("passwdRequired"), null));
 		}
 		
-
 		if (uzytkownikDAO.getLoginForRegister(login) ) 
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 					txtError.getString("loginOccupied"), null));
 
-
-		// if no errors
 		if (ctx.getMessageList().isEmpty()) {
 			uzytkownik.setImie(imie.trim());
 			uzytkownik.setNazwisko(nazwisko.trim());
@@ -196,8 +183,6 @@ public class UzytkownikEditBB implements Serializable {
 	}
 
 	public String saveData() {
-
-		// no Uzytkownik object passed
 		if (uzytkownik == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, 
@@ -211,10 +196,8 @@ public class UzytkownikEditBB implements Serializable {
 
 		try {
 			if (uzytkownik.getId() == null) {
-				// new record
 				uzytkownikDAO.create(uzytkownik);
 			} else {
-				// existing record
 				uzytkownikDAO.merge(uzytkownik);
 			}
 		} catch (Exception e) {

@@ -52,7 +52,6 @@ public class LoginBB {
 		boolean result = true;
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		// check if not empty
 		if (login == null || login.length() == 0) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 					txtError.getString("setLogin"), null));
@@ -76,27 +75,22 @@ public class LoginBB {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		Uzytkownik user = null;
 
-		// 1. check parameters and stay if errors
 		if (!validateData()) {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		// 2. verify login and password - get User from "database"
 		user = getUserFromDatabase(login, pass);
 
-		// 3. if bad login or password - stay with error info
 		if (user == null) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 					txtError.getString("wrongLoginProp"), null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		// 4. if login ok - save User object in session
 		HttpSession session = (HttpSession) ctx.getExternalContext()
 				.getSession(true);
 		session.setAttribute("user", user);
 
-		// and enter the system
 		if (user.getRola().equals("user")) 
 			return PAGE_MAIN;
 		else if (user.getRola().equals("admin"))
@@ -113,9 +107,6 @@ public class LoginBB {
 	public String doLogout(){
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
-		//Invalidate session
-		// - all objects within session will be destroyed
-		// - new session will be created (with new ID)
 		session.invalidate();
 		return PAGE_LOGIN;
 	}
@@ -123,7 +114,6 @@ public class LoginBB {
 	
 	@EJB
 	UzytkownikDAO uzytkownikDAO;
-	// simulate finding user in database
 	private Uzytkownik getUserFromDatabase(String login, String pass) {
 		Uzytkownik u = null;
 		List<Uzytkownik> list = null;

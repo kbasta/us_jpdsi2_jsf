@@ -42,9 +42,6 @@ public class KsiazkaAdminEditBB implements Serializable {
 	private String autor;
 	private String gatunek;
 	private int ile;
-	
-	// getters, setters (properties used at the JSF page)
-
 
 	public String getTytul() {
 		return tytul;
@@ -78,42 +75,33 @@ public class KsiazkaAdminEditBB implements Serializable {
 		this.ile = ile;
 	}
 
-
-	// object to be edited/inserted
 	private Ksiazka ksiazka = null;
 
 	@PostConstruct
 	public void postConstruct() {
-		// A. load ksiazka if passed through session
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
 		ksiazka = (Ksiazka) session.getAttribute("ksiazka");
 
-		// cleaning: attribute received => delete it from session
 		if (ksiazka != null) {
 			session.removeAttribute("ksiazka");
 		}
 
-		// B. if object not loaded try to get Ksiazka by id passed as GET
-		// parameter
 		if (ksiazka == null) {
 			HttpServletRequest req = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			id = req.getParameter("p");
 			if (id != null) {
-				// parse id
 				Integer ident = null;
 				try {
 					ident = Integer.parseInt(id);
 				} catch (NumberFormatException e) {
 				}
 				if (ident != null) {
-					// if parsing successful
 					ksiazka = ksiazkaDAO.find(ident);
 				}
 			}
 		}
-		// if loaded record is to be edited then copy data to properties
 		if (ksiazka != null && ksiazka.getId() != 0) {
 			setAutor(ksiazka.getAutor());
 			setTytul(ksiazka.getTytul());
@@ -148,7 +136,6 @@ public class KsiazkaAdminEditBB implements Serializable {
 				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 						txtError.getString("enterAnotherBook"), null));
 
-		// if no errors
 		if (ctx.getMessageList().isEmpty()) {
 			ksiazka.setTytul(tytul.trim());
 			ksiazka.setAutor(autor.trim());
@@ -162,7 +149,6 @@ public class KsiazkaAdminEditBB implements Serializable {
 
 	public String saveData() {
 
-		// no Ksiazka object passed
 		if (ksiazka == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, 
@@ -176,10 +162,8 @@ public class KsiazkaAdminEditBB implements Serializable {
 
 		try {
 			if (ksiazka.getId() == null) {
-				// new record
 				ksiazkaDAO.create(ksiazka);
 			} else {
-				// existing record
 				ksiazkaDAO.merge(ksiazka);
 			}
 		} catch (Exception e) {

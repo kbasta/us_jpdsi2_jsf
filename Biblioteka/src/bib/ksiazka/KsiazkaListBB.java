@@ -73,8 +73,6 @@ public class KsiazkaListBB {
 		return strona;
 	}
 
-	//Dependency injection
-	// - no setter method needed in this case
 	@EJB
 	KsiazkaDAO ksiazkaDAO;
 	
@@ -85,7 +83,6 @@ public class KsiazkaListBB {
 	public List<Ksiazka> getList(){
 		List<Ksiazka> list = null;
 		
-		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
 		
 		if (tytul != null && tytul.length() > 0){
@@ -101,7 +98,6 @@ public class KsiazkaListBB {
 			searchParams.put("stona", strona);
 		}
 		
-		//2. Get list
 		list = ksiazkaDAO.getList(searchParams);
 		
 		return list;
@@ -110,7 +106,6 @@ public class KsiazkaListBB {
 	public List<Ksiazka> getListPagination(){
 		List<Ksiazka> listPagination = null;
 		
-		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
 		
 		if (tytul != null && tytul.length() > 0){
@@ -123,7 +118,6 @@ public class KsiazkaListBB {
 			searchParams.put("gatunek", gatunek);
 		}
 		
-		//2. Get list
 		listPagination = ksiazkaDAO.getListPagination(searchParams, strona);
 		
 		return listPagination;

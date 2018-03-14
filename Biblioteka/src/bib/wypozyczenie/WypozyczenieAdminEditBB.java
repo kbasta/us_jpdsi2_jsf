@@ -100,41 +100,34 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		this.status = status;
 	}
 
-	// object to be edited/inserted
 	private Wypozyczenie wypozyczenie = null;
 
 	@PostConstruct
 	public void postConstruct() {
-		// A. load wypozyczenie if passed through session
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
 		wypozyczenie = (Wypozyczenie) session.getAttribute("wypozyczenie");
 
-		// cleaning: attribute received => delete it from session
 		if (wypozyczenie != null) {
 			session.removeAttribute("wypozyczenie");
 		}
 
-		// B. if object not loaded try to get Wypozyczenie by id passed as GET
-		// parameter
 		if (wypozyczenie == null) {
 			HttpServletRequest req = (HttpServletRequest) FacesContext
 					.getCurrentInstance().getExternalContext().getRequest();
 			idWyp = req.getParameter("p");
 			if (idWyp != null) {
-				// parse id
 				Integer ident = null;
 				try {
 					ident = Integer.parseInt(idWyp);
 				} catch (NumberFormatException e) {
 				}
 				if (ident != null) {
-					// if parsing successful
 					wypozyczenie = wypozyczenieDAO.find(ident);
 				}
 			}
 		}
-		// if loaded record is to be edited then copy data to properties
+
 		if (wypozyczenie != null && wypozyczenie.getIdWyp() != 0) {
 			setUzytkownik(wypozyczenie.getUzytkownik());
 			setKsiazka(wypozyczenie.getKsiazka());
@@ -158,7 +151,6 @@ public class WypozyczenieAdminEditBB implements Serializable {
 				return result;
 		}
 		
-		// if no errors
 		if (ctx.getMessageList().isEmpty()) {
 			wypozyczenie.setUzytkownik(uzytkownik);
 			wypozyczenie.setKsiazka(ksiazka);
@@ -172,8 +164,6 @@ public class WypozyczenieAdminEditBB implements Serializable {
 	}
 
 	public String saveData() {
-
-		// no Wypozyczenie object passed
 		if (wypozyczenie == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, 
@@ -187,10 +177,8 @@ public class WypozyczenieAdminEditBB implements Serializable {
 
 		try {
 			if (wypozyczenie.getIdWyp() == 0) {
-				// new record
 				wypozyczenieDAO.create(wypozyczenie);
 			} else {
-				// existing record
 				wypozyczenieDAO.merge(wypozyczenie);
 			}
 		} catch (Exception e) {

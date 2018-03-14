@@ -140,6 +140,7 @@ public class WypozyczenieListBB implements Serializable{
 	WypozyczenieDAO wypozyczenieDAO;
 	KsiazkaDAO ksiazkaDAO;
 	
+	//for pagination
 	public String incrPage(String stronaaa) {
 		int stronaa = 0;
 		stronaa = Integer.parseInt(stronaaa);
@@ -157,6 +158,7 @@ public class WypozyczenieListBB implements Serializable{
 		strona = String.valueOf(stronaa);
 		return strona;
 	}
+	//for pagination
 	
 	public List<Wypozyczenie> getFullList(){
 		return wypozyczenieDAO.getFullList();
@@ -165,7 +167,6 @@ public class WypozyczenieListBB implements Serializable{
 	public List<Wypozyczenie> getList(){
 		List<Wypozyczenie> list = null;
 		
-		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
 		
 		searchParams.put("status", status);
@@ -175,7 +176,6 @@ public class WypozyczenieListBB implements Serializable{
 		searchParams.put("autor", autor);
 		searchParams.put("tytul", tytul);
 
-		//2. Get list
 		list = wypozyczenieDAO.getList(searchParams);
 		
 		return list;
@@ -184,7 +184,6 @@ public class WypozyczenieListBB implements Serializable{
 	public List<Wypozyczenie> getListForUser(){
 		List<Wypozyczenie> list = null;
 		
-		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
 		
 		searchParams.put("autor", autor);
@@ -192,7 +191,6 @@ public class WypozyczenieListBB implements Serializable{
 		searchParams.put("status", status);
 		searchParams.put("userid", userid);
 		
-		//2. Get list
 		list = wypozyczenieDAO.getListForUser(searchParams, strona);
 		
 		return list;
