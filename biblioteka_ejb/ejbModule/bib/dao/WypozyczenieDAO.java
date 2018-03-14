@@ -151,7 +151,7 @@ public class WypozyczenieDAO {
 		return list;
 	}
 
-	public List<Wypozyczenie> getListForUser(Map<String, Object> searchParams) {
+	public List<Wypozyczenie> getListForUser(Map<String, Object> searchParams, String strona) {
 		List<Wypozyczenie> list = null;
 
 		// 1. Build query string with parameters
@@ -183,9 +183,12 @@ public class WypozyczenieDAO {
 		}
 		
 		// ... other parameters ... 
-
+		int stronaa = 1;
+		stronaa = Integer.parseInt(strona);
 		// 4. Execute query and retrieve list of Person objects
 		try {
+			query.setFirstResult(( stronaa - 1 ) * 5);
+			query.setMaxResults(5);
 			list = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -19,12 +19,7 @@
 						<h:outputLabel value="#{txtBook.author}:" />
 						<h:inputText value="#{ksiazkaListBB.autor}" />
 						<h:outputLabel value="#{txtBook.genre}:" />
-						<h:inputText value="#{ksiazkaListBB.gatunek}" />
-						<h:outputLabel value="#{txtMain.page}:" />
-						<h:selectOneMenu value = "#{ksiazkaListBB.strona}"> 
-   							<f:selectItem itemValue = "1" itemLabel = "1" /> 
-   							<f:selectItem itemValue = "2" itemLabel = "2" /> 
-						</h:selectOneMenu> 		
+						<h:inputText value="#{ksiazkaListBB.gatunek}" />		
 					<h:commandButton value="#{txtMain.search}" update="table" />
 					</h:panelGrid>
 				</fieldset>
@@ -75,6 +70,16 @@
 				</h:column>
 
 			</h:dataTable>
+			<h:form>
+			<fieldset style="border: 0; display: block; float: right;">
+				<h:panelGrid columns="6" cellpadding="5" id="pa">	
+				<h:outputText value="#{txtMain.page}:"/>
+				<h:commandButton value="#{txtMain.previous}" action="#{ksiazkaListBB.decPage(ksiazkaListBB.strona)}" update="pa"  />
+				<h:outputText value="#{ksiazkaListBB.strona}" rednered="#{ksiazkaListBB.strona}"/>
+				<h:commandButton value="#{txtMain.next}" action="#{ksiazkaListBB.incrPage(ksiazkaListBB.strona)}" update="pa" />
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
 			<h:messages styleClass="msg info newInfo borrowInfo"/>
 		</div>
 	</div>

@@ -9,6 +9,16 @@
 
 	<ui:define name="content">
 	<div id = "content" class = "col-lg-9">
+	<div>
+		<h:form>
+			<fieldset style="border: 0">
+				<legend><h:outputText value="#{txtMain.searchBar}" /></legend>
+				<h:panelGrid columns="6" cellpadding="5" id="pa">
+
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+		</div>
 			<h3><h:outputText value = '#{txtMain.hello} #{loginBB.user.imie} #{loginBB.user.nazwisko}'/>!</h3>
 			<h:dataTable value="#{wypozyczenieListBB.listForUser}" var="wyp"
 				cellpadding="10" border="0" cellspacing="10" style="table-layout: fixed; width: 100%;">
@@ -49,7 +59,16 @@
 					<h:outputText value="#{wyp.status}" />
 				</h:column>
 		</h:dataTable>
-		
+		<h:form>
+			<fieldset style="border: 0; display: block; float: right;">
+				<h:panelGrid columns="6" cellpadding="5" id="pa">	
+				<h:outputText value="#{txtMain.page}:"/>
+				<h:commandButton value="#{txtMain.previous}" action="#{wypozyczenieListBB.decPage(wypozyczenieListBB.strona)}" update="pa" />
+				<h:outputText value="#{wypozyczenieListBB.strona}" rednered="#{wypozyczenieListBB.strona}"/>
+				<h:commandButton value="#{txtMain.next}" action="#{wypozyczenieListBB.incrPage(wypozyczenieListBB.strona)}" update="pa" />
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
 	</div>
 	</ui:define>
 

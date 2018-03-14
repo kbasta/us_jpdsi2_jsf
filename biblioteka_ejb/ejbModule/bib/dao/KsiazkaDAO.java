@@ -120,7 +120,7 @@ public class KsiazkaDAO {
 	
 	public List<Ksiazka> getListPagination(Map<String, Object> searchParams, String strona) {
 		List<Ksiazka> listPagination = null;
-		int stronaa = 1;
+		
 		// 1. Build query string with parameters
 		String select = "select p ";
 		String from = "from Ksiazka p ";
@@ -158,13 +158,7 @@ public class KsiazkaDAO {
 			}
 			where += "p.gatunek like :gatunek ";
 		}
-			stronaa = Integer.parseInt(strona);
-		
-	//	if (strona != null) {
-	//		if (limit.isEmpty()) {
-	//			limit = "limit :strona,5 ";
-	//		}
-	//	}
+
 
 		// 2. Create query object
 		Query query = em.createQuery(select + from + where + orderby + limit);
@@ -182,6 +176,8 @@ public class KsiazkaDAO {
 
 		// ... other parameters ... 
 
+		int stronaa = 1;
+		stronaa = Integer.parseInt(strona);
 		// 4. Execute query and retrieve list of Person objects
 		try {
 			query.setFirstResult(( stronaa - 1 ) * 5);

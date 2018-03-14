@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ public class KsiazkaListBB {
 	private String tytul;
 	private String autor;
 	private String gatunek;
-	private String strona = "1";
+	public String strona = "1";
 	
 	public String getStrona() {
 		return strona;
@@ -52,6 +53,24 @@ public class KsiazkaListBB {
 	
 	public void setGatunek(String gatunek) {
 		this.gatunek = gatunek;
+	}
+	
+	public String incrPage(String stronaaa) {
+		int stronaa = 0;
+		stronaa = Integer.parseInt(stronaaa);
+		stronaa++;
+		strona = String.valueOf(stronaa);
+		return strona;
+	}
+	
+	public String decPage(String stronaaa) {
+		int stronaa = 0;
+		stronaa = Integer.parseInt(stronaaa);
+		stronaa--;
+		if (stronaa == 0) 	
+			return strona;
+		strona = String.valueOf(stronaa);
+		return strona;
 	}
 
 	//Dependency injection

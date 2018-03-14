@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +32,21 @@ import com.jsfcourse.security.*;
 
 @ManagedBean
 @ViewScoped
+@SessionScoped
 public class WypozyczenieListBB implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final String PAGE_MY_BORROWS = "position?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+
+	public String strona = "1";
+	
+	public String getStrona() {
+		return strona;
+	}
+
+	public void setStrona(String strona) {
+		this.strona = strona;
+	}
 
 	@ManagedProperty("#{txtError}")
 	private ResourceBundle txtError;
@@ -128,6 +140,23 @@ public class WypozyczenieListBB implements Serializable{
 	WypozyczenieDAO wypozyczenieDAO;
 	KsiazkaDAO ksiazkaDAO;
 	
+	public String incrPage(String stronaaa) {
+		int stronaa = 0;
+		stronaa = Integer.parseInt(stronaaa);
+		stronaa++;
+		strona = String.valueOf(stronaa);
+		return strona;
+	}
+	
+	public String decPage(String stronaaa) {
+		int stronaa = 0;
+		stronaa = Integer.parseInt(stronaaa);
+		stronaa--;
+		if (stronaa == 0) 
+			return strona;
+		strona = String.valueOf(stronaa);
+		return strona;
+	}
 	
 	public List<Wypozyczenie> getFullList(){
 		return wypozyczenieDAO.getFullList();
@@ -161,7 +190,7 @@ public class WypozyczenieListBB implements Serializable{
 		searchParams.put("userid", userid);
 		
 		//2. Get list
-		list = wypozyczenieDAO.getListForUser(searchParams);
+		list = wypozyczenieDAO.getListForUser(searchParams, strona);
 		
 		return list;
 	}
