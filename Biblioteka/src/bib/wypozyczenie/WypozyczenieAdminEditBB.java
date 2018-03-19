@@ -42,6 +42,7 @@ public class WypozyczenieAdminEditBB implements Serializable {
 	
 	@EJB
 	WypozyczenieDAO wypozyczenieDAO;
+	@EJB
 	KsiazkaDAO ksiazkaDAO;
 	UzytkownikDAO uzytkownikDAO;
 	
@@ -157,6 +158,14 @@ public class WypozyczenieAdminEditBB implements Serializable {
 			wypozyczenie.setDataWyp(dataWyp);
 			wypozyczenie.setDataOd(dataOdd);
 			wypozyczenie.setStatus(status); 
+			
+			if (wypozyczenie.getStatus().equals("oddany")) {
+				Ksiazka k = ksiazka;
+				int temp = ksiazka.getIle();
+				temp++;
+				k.setIle(temp);
+				ksiazkaDAO.merge(k);
+			}
 			result = true;
 		}
 
