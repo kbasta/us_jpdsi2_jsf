@@ -20,6 +20,7 @@ public class LoginBB {
 	private static final String PAGE_MAIN = "/pages/bib/main";
 	private static final String PAGE_ADMIN_MAIN = "/pages/admin/main";
 	private static final String PAGE_LOGIN = "/pages/login";
+	private static final String PAGE_TEMP = "/pages/temp";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String login;
@@ -93,8 +94,10 @@ public class LoginBB {
 
 		if (user.getRola().equals("user")) 
 			return PAGE_MAIN;
+			//return PAGE_TEMP;
 		else if (user.getRola().equals("admin"))
 			return PAGE_ADMIN_MAIN;
+			//return PAGE_TEMP;
 		return PAGE_STAY_AT_THE_SAME;
 	}
 
