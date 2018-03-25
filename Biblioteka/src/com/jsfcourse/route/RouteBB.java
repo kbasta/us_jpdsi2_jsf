@@ -18,6 +18,7 @@ public class RouteBB {
 	private static final String PAGE_ADMIN_USER = "/pages/admin/users/userList";
 	private static final String PAGE_ADMIN_BOOK = "/pages/admin/books/bookList";
 	private static final String PAGE_ADMIN_BORROW = "/pages/admin/borrows/borrowList";
+	private static final String PAGE_USER_EDIT = "/pages/bib/userEdit";
 	
 	@EJB
 	UzytkownikDAO uzytkownikDAO;
@@ -58,5 +59,9 @@ public class RouteBB {
 	
 	public String adminBorrows() {
 		return PAGE_ADMIN_BORROW;
+	}
+	
+	public String userEdit() {
+		return PAGE_USER_EDIT;
 	}
 }

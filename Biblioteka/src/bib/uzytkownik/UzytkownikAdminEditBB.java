@@ -16,6 +16,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.jsfcourse.security.LoginBB;
+
 import bib.dao.UzytkownikDAO;
 import bib.entities.Uzytkownik;
 
@@ -109,30 +112,37 @@ public class UzytkownikAdminEditBB implements Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		//Session
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
-		uzytkownik = (Uzytkownik) session.getAttribute("uzytkownik");
-
-		if (uzytkownik != null) {
-			session.removeAttribute("uzytkownik");
+		
+		if (logedUser.getRola().equals("user")) {
+			uzytkownik = uzytkownikDAO.find(logedUser.getId());
 		}
-		//GET
-		if (uzytkownik == null) {
-			HttpServletRequest req = (HttpServletRequest) FacesContext
-					.getCurrentInstance().getExternalContext().getRequest();
-			id = req.getParameter("p");
-			if (id != null) {
-				Integer ident = null;
-				try {
-					ident = Integer.parseInt(id);
-				} catch (NumberFormatException e) {
-				}
-				if (ident != null) {
-					uzytkownik = uzytkownikDAO.find(ident);
+		else {
+			//Session
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(true);
+			uzytkownik = (Uzytkownik) session.getAttribute("uzytkownik");
+	
+			if (uzytkownik != null) {
+				session.removeAttribute("uzytkownik");
+			}
+			//GET
+			if (uzytkownik == null) {
+				HttpServletRequest req = (HttpServletRequest) FacesContext
+						.getCurrentInstance().getExternalContext().getRequest();
+				id = req.getParameter("p");
+				if (id != null) {
+					Integer ident = null;
+					try {
+						ident = Integer.parseInt(id);
+					} catch (NumberFormatException e) {
+					}
+					if (ident != null) {
+						uzytkownik = uzytkownikDAO.find(ident);
+					}
 				}
 			}
-		}
+		}	
+			
 		if (uzytkownik != null && uzytkownik.getId() != null) {
 			setImie(uzytkownik.getImie());
 			setNazwisko(uzytkownik.getNazwisko());
@@ -141,8 +151,10 @@ public class UzytkownikAdminEditBB implements Serializable {
 			setKara(uzytkownik.getKara());
 			setRola(uzytkownik.getRola());
 		}
+		
+		 
 	}
-
+	
 	private boolean validate() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		boolean result = false;
@@ -204,6 +216,7 @@ public class UzytkownikAdminEditBB implements Serializable {
 		}
 
 		if (logedUser.getRola().equals("admin")) return PAGE_ADMIN_USER_LIST;
+		if (logedUser.getRola().equals("user")) return PAGE_STAY_AT_THE_SAME;
 		return PAGE_PERSON_LIST;
 	}
 }
