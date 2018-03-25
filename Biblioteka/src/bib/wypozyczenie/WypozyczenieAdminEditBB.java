@@ -145,6 +145,12 @@ public class WypozyczenieAdminEditBB implements Serializable {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String tempDate1 = sdf.format(new Date());
 		
+		if(wypozyczenie.getStatus().equals("oddany")) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("cantUpdateBorrowStatus"), null));
+			return result;
+		}
+		
 		if (status.equals("oddany"))
 			if (!sdf.format(dataOdd).equals(tempDate1)) {
 				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
