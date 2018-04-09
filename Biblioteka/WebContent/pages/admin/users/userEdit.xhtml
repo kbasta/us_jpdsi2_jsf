@@ -13,6 +13,7 @@
 	<div id = "content" class = "col-lg-9">
 		<div style="margin-bottom: 1em;">
 			<h:form>
+			<p:growl id="messages" sticky="true" />
 				<p:fieldset legend="#{txtUser.userEdit}" style="border-radius: 0.2em; background-color: #ccc;">
 					<h:panelGrid columns="2" cellpadding="5">
 						<p:outputLabel for="p-imie" value="#{txtUser.name}:" />
@@ -25,7 +26,7 @@
 						<p:inputText id="p-kara" value="#{uzytkownikAdminEditBB.kara}" disabled="true"/>	
 					</h:panelGrid>
 					<p:commandButton value="#{txtMain.save}" action="#{uzytkownikAdminEditBB.saveData()}" 
-			        			icon="ui-icon-disk"  />
+			        			icon="ui-icon-disk" update="messages" />
 	    			<p:commandButton value="#{txtMain.cancel}" action="#{routeBB.adminUsers()}" icon="ui-icon-undo" />
 				</p:fieldset>
 			</h:form>

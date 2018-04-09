@@ -14,6 +14,7 @@ public class RouteBB {
 	private static final String PAGE_POSITION = "/pages/bib/position";
 	private static final String PAGE_SEARCH = "/pages/bib/search";
 	private static final String PAGE_RULES = "/pages/bib/rules";
+	private static final String PAGE_USER_MAIN = "/pages/bib/main";
 	private static final String PAGE_LOGIN = "/pages/login";
 	private static final String PAGE_ADMIN_USER = "/pages/admin/users/userList";
 	private static final String PAGE_ADMIN_BOOK = "/pages/admin/books/bookList";
@@ -63,5 +64,9 @@ public class RouteBB {
 	
 	public String userEdit() {
 		return PAGE_USER_EDIT;
+	}
+	
+	public String userMain() {
+		return PAGE_USER_MAIN;
 	}
 }

@@ -143,10 +143,6 @@ public class UzytkownikDAO {
 		query.setParameter("login", login);
 		logList = query.getResultList();
 		
-		//Uzytkownik user = list.get(0);
-		//if (user.getLogin() != null) return false;
-		//else return true;
-		//return logList;
 		if (logList.isEmpty()) return false;
 		else return true;
 	}

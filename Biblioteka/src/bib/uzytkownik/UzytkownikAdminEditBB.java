@@ -28,6 +28,7 @@ public class UzytkownikAdminEditBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_PERSON_LIST = "/pages/login";
+	private static final String PAGE_USER_MAIN = "/pages/bib/main";
 	private static final String PAGE_ADMIN_USER_LIST = "/pages/admin/users/userList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
@@ -176,6 +177,10 @@ public class UzytkownikAdminEditBB implements Serializable {
 					txtUser.getString("passwdRequired"), null));
 		}
 		
+		if ((uzytkownikDAO.getLoginForRegister(login)) && !(uzytkownik.getLogin().equals(login))) 
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("loginOccupied"), null));
+		
 		if (ctx.getMessageList().isEmpty()) {
 			uzytkownik.setImie(imie.trim());
 			uzytkownik.setNazwisko(nazwisko.trim());
@@ -216,7 +221,7 @@ public class UzytkownikAdminEditBB implements Serializable {
 		}
 
 		if (logedUser.getRola().equals("admin")) return PAGE_ADMIN_USER_LIST;
-		if (logedUser.getRola().equals("user")) return PAGE_STAY_AT_THE_SAME;
+		if (logedUser.getRola().equals("user")) return PAGE_USER_MAIN;
 		return PAGE_PERSON_LIST;
 	}
 }
