@@ -1,13 +1,24 @@
+:root{
+	--font-color: #000;
+	--background-first-color: #949494;
+	--background-second-color: #e4e4e4;
+}
+
 body{
 	/*background-color: #f00;*/
 	margin: 0 5%;
 	font-family: verdana;	
-	background-color: #949494;
+	background-color: var(--background-first-color);
+	color: var(--font-color);
 }
 
 #naglowek{
-	background: radial-gradient(#e4e4e4, #949494 70%);
+	background: radial-gradient(var(--background-second-color), var(--background-first-color) 70%);
 	text-align: center;
+}
+button{
+	background-color: var(--background-second-color);
+	color: var(--background-first-color);
 }
 
 #kontener{
@@ -15,7 +26,7 @@ body{
 }
 
 #menu{
-	background: #949494;
+	background: var(--background-first-color);
 }
 
 #menu ul{
@@ -25,12 +36,12 @@ body{
 
 #menu ul li{
 	list-style-type: none;
-	background: #949494;
+	background: var(--background-first-color);
 	/*padding: 5%;*/
 }
 
 #menu ul li:hover{
-	background: radial-gradient(#e4e4e4, #949494 60%);
+	background: radial-gradient(var(--background-second-color), var(--background-first-color) 60%);
 }
 
 #menu ul li a{
@@ -48,7 +59,7 @@ body{
 
 #stopka {
 	float: right;
-	background: radial-gradient(#a0a0a0, #949494 60%);
+	background: radial-gradient(var(--background-second-color), var(--background-first-color) 60%);
 	width: 100%;
 	display: block;	
 	text-align: center;

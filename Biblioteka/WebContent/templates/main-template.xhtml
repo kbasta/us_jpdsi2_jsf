@@ -9,19 +9,21 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>test</title>
+	<title>Biblioteka</title>
 	<h:outputStylesheet name="styl.css" library="css" />
 	<h:outputStylesheet name="style.css" library="css" />
 	<h:outputStylesheet name="styleN.css" library="css" />
+	<h:outputScript name="scripts.js" library="js" />
   	<link type="image/x-icon" rel="shortcut icon"
 		href="#{resource['template:img/java.ico']}" />
 </h:head>
 
 <h:body>
 	<div id="page_wrapper">
+	<script>checkThemes();</script>
 		<ui:insert name="header">
 			<div id="header" class="box bottom-space">
-			<!--	<ui:include src="/templates/header-snippet.xhtml" /> -->
+				<ui:include src="/templates/header-snippet.xhtml" />
 			</div>
 		</ui:insert>
 		<div id = "kontener" class = "col-lg-13">
@@ -32,15 +34,16 @@
 			<h:form style="display:inline;">
 				<li><h:commandButton value="#{txtMain.myHires}" action="#{routeBB.position()}" styleClass="menuPrimeButtonsWidth"/></li>
 				<li><h:commandButton value="#{txtMain.bookCatalogue}" action="#{routeBB.search()}" styleClass="menuPrimeButtonsWidth"/></li>
-				<li><h:commandButton value="#{txtMain.rules}" action="#{routeBB.rules()}" styleClass="menuPrimeButtonsWidth"/></li> 
+				<li><h:commandButton value="#{txtMain.rules}" action="#{routeBB.rules()}" styleClass="menuPrimeButtonsWidth"/></li>
 				<li><h:commandButton value="#{txtMain.profileEdit}" action="#{routeBB.userEdit()}" styleClass="menuPrimeButtonsWidth"/></li>
+				<li><h:commandButton value="#{txtMain.additionalContent}" action="#{routeBB.additionalContent()}" styleClass="menuPrimeButtonsWidth"/></li>
 				<li><h:commandButton value="#{txtMain.signOut}" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
 			</h:form>
 	
 				</ul>
 			</div>
-
-			<ui:insert name="content"></ui:insert>
+			<div id = "" class = "col-lg-10 col-sm-6">
+			<ui:insert name="content"></ui:insert></div>
 		</div>
 		<ui:insert name="footer">
 			<div id = "stopka" class = "col-lg-12">

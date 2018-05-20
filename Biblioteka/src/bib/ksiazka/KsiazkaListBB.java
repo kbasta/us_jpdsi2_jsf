@@ -3,12 +3,18 @@ package bib.ksiazka;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.chart.PieChartModel;
 
 import bib.dao.KsiazkaDAO;
 import bib.entities.Ksiazka;
@@ -22,6 +28,15 @@ public class KsiazkaListBB {
 	private String autor;
 	private String gatunek;
 	public String strona = "1";
+	
+	private PieChartModel pieModel1;
+
+	@ManagedProperty("#{txtError}")
+	private ResourceBundle txtError;
+	
+	public void setTxtError(ResourceBundle txtError) {
+		this.txtError = txtError;
+	}
 	
 	public String getStrona() {
 		return strona;
@@ -139,7 +154,39 @@ public class KsiazkaListBB {
 	}
 
 	public String deleteKsiazka(Ksiazka ksiazka){
-		ksiazkaDAO.remove(ksiazka);
+		try {
+			ksiazkaDAO.remove(ksiazka);
+		}
+		catch (Exception e){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					txtError.getString("cantDeleteBook"), null));
+		}
 		return PAGE_STAY_AT_THE_SAME;
 	}
+	
+    @PostConstruct
+    public void init() {
+        createPieModels();
+    }
+     
+    public PieChartModel getPieModel1() {
+        return pieModel1;
+    }
+	
+	private void createPieModels() {
+        createPieModel1();
+    }
+     
+    private void createPieModel1() {
+        pieModel1 = new PieChartModel();
+        List<Ksiazka> lista = getList(); 
+        
+        for(Ksiazka l : lista){
+        	pieModel1.set(l.getGatunek(),l.getIle());
+        }
+         
+        pieModel1.setTitle("Satystyka");
+        pieModel1.setLegendPosition("e");
+    }
 }

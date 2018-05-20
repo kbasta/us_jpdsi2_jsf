@@ -10,6 +10,10 @@
 <ui:composition template="/templates/admin-template.xhtml">
 
 	<ui:define name="content">
+	<h:outputScript name="scripts.js" library="js" />
+	<p:dialog header="Liczba gatunków na stanie" widgetVar="chart1" modal="true" width="450px">
+			<p:chart type="pie" model="#{ksiazkaListBB.pieModel1}" style="width:400px;height:300px" />
+	</p:dialog>
 	<div id = "content" class = "col-lg-9">
 		<div style="margin-bottom: 1em;">
 			<h:form>
@@ -38,6 +42,8 @@
 	        <f:facet name="{paginatorTopLeft}">
 	            <p:commandButton value="#{txtBook.addNewBook}" action="#{ksiazkaListBB.newKsiazka()}"
 	            				 icon="ui ui-sync" process="@this" ajax="true" style="float:left"/>
+			 	<p:commandButton value="#{txtMain.stats}" onclick="PF('chart1').show();"
+			 					 icon="ui ui-sync" process="@this" ajax="true" style="float:left"/>
 	        </f:facet>
 	         <f:facet name="{Exporters}">
 				<h:form style="float:right">
@@ -68,6 +74,7 @@
 			</p:column>
 			<p:column headerText="#{txtMain.options}" exportable="false">
 				<h:form>
+				
 				<p:menuButton value="#{txtMain.options}" >
 			        <p:menuitem value="#{txtMain.edit}" outcome="/pages/admin/books/bookEdit" process="@this" ajax="true" icon="ui-icon-arrowrefresh-1-w" >
 			        	<f:param name="p" value="#{book.id}" />
@@ -79,6 +86,7 @@
 			    </h:form>
 			</p:column>
 		</p:dataTable>	
+		
 	</div>
 	</ui:define>
 

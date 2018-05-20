@@ -59,6 +59,8 @@ body{
 
 .menuPrimeButtonsWidth{
 	width: 180px;
+	background-color: var(--background-second-color);
+	color: var(--font-color);
 }
 
 .menuPrimeButtonsVerticalPaddings{

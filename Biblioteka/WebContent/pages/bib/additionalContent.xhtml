@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+
+	<ui:define name="content">
+	<h:outputScript name="scripts.js" library="js" />
+	<h:outputScript name="jquery-1.11.1.min.js" library="js"  />
+	<h:outputScript name="canvasjs.min.js" library="js" />
+	<div id = "content" class = "col-lg-9">
+		<h:form>
+			<h3 style="text-align:center;"><h:outputText value="Zmień motyw" /></h3>
+			<div>
+				<h:panelGrid columns="8" cellpadding="5">
+					<h:outputText value="Zmień kolor czcionki:" />
+					<h:commandButton value="" onclick="setFontColor('#000');" style="width:30px; background-color: #000"/>
+					<h:commandButton value="" onclick="setFontColor('#f00');" style="width:30px; background-color: #f00"/>
+					<h:commandButton value="" onclick="setFontColor('#fc00ff');" style="width:30px; background-color: #fc00ff"/>
+					<h:commandButton value="" onclick="setFontColor('#ff69b4');" style="width:30px; background-color: #ff69b4"/>
+					<h:commandButton value="" onclick="setFontColor('#00ffa2');" style="width:30px; background-color: #00ffa2"/>
+					<h:commandButton value="" onclick="setFontColor('#0f0');" style="width:30px; background-color: #0f0"/>
+					<h:commandButton value="" onclick="setFontColor('#00f');" style="width:30px; background-color: #00f"/>
+					<h:outputText value="Zmień kolor tła:" />
+					<h:commandButton value="" onclick="setBgColor('#000', '#949494');" style="width:30px; background-color: #000"/>
+					<h:commandButton value="" onclick="setBgColor('#949494', '#e4e4e4');" style="width:30px; background-color: #949494"/>
+					<h:commandButton value="" onclick="setBgColor('#f00', '#ff9191');" style="width:30px; background-color: #f00"/>
+					<h:commandButton value="" onclick="setBgColor('#ff69b4', '#ff91d9');" style="width:30px; background-color: #ff69b4"/>
+					<h:commandButton value="" onclick="setBgColor('#eaed00', '#feff86');" style="width:30px; background-color: #eaed00"/>
+					<h:commandButton value="" onclick="setBgColor('#00cd22', '#e4e4e4');" style="width:30px; background-color: #00ffa2"/>
+					<h:commandButton value="" onclick="setBgColor('#0065cd', '#00ffe4');" style="width:30px; background-color: #00f"/>
+				</h:panelGrid>
+			</div>
+			<h3 style="text-align:center;"><h:outputText value="JS-owa walidancja inputa" /></h3>
+			<div>
+				<h:panelGrid columns="3" cellpadding="5">
+					<h:outputText value="Wpisz 4. znakową frazę rozpoczynając wielką literą, a kończąc jedną cyfrą" />
+					<h:inputText value="a" id="inputforJsValidation" />
+					<h:commandButton value="Waliduj" onclick="inputJsValidation();" styleClass="menuPrimeButtonsWidth" />
+				</h:panelGrid>
+			</div>
+			<div>
+			<h3 style="text-align:center;"><h:outputText value="Wykres z danymi z JSON" /></h3>
+			<div id="chart" style="height: 300px; width: 400px; margin: auto"></div>
+			</div>
+		</h:form>
+	</div>
+	</ui:define>
+
+</ui:composition>
+</html>

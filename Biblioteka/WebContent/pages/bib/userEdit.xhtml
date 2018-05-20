@@ -21,8 +21,8 @@
 						<p:inputText id="p-nazwisko" value="#{uzytkownikAdminEditBB.nazwisko}" />
 						<p:outputLabel for="p-login" value="#{txtMain.login}:" />
 						<p:inputText id="p-login" value="#{uzytkownikAdminEditBB.login}" />
-						<p:outputLabel for="p-kara" value="#{txtUser.fine}:" />
-						<p:inputText id="p-kara" value="#{uzytkownikAdminEditBB.kara}" disabled="true"/>	
+					    <p:outputLabel for="p-kara" value="#{txtUser.fine}:" />
+						<p:inputText id="p-kara" value="#{uzytkownikAdminEditBB.kara}" disabled="true"/>
 					</h:panelGrid>
 					<p:commandButton value="#{txtMain.save}" action="#{uzytkownikAdminEditBB.saveData()}" 
 			        			icon="ui-icon-disk"  />

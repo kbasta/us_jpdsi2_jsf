@@ -23,7 +23,7 @@
 	<div id="page_wrapper">
 		<ui:insert name="header">
 			<div id="header" class="box bottom-space">
-			 	<ui:include src="/templates/header-snippet.xhtml" />
+			  	<ui:include src="/templates/header-snippet.xhtml" />
 			</div>
 		</ui:insert>
 		<div id = "kontener" class = "col-lg-13">
@@ -31,10 +31,10 @@
 			<div id = "menu" class = "col-lg-3 col-sm-6">
 				<ul>
 					<h:form style="display:inline;">
-					 	<li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="#{txtMain.books}" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="#{txtMain.borrows}" action="#{routeBB.adminBorrows()}" styleClass="menuPrimeButtonsWidth"/></li>
-						<li><p:commandButton value="#{txtMain.signOut}" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
+					 <li><p:commandButton value="#{txtMain.users}" action="#{routeBB.adminUsers()}" styleClass="menuPrimeButtonsWidth"/></li>
+					 <li><p:commandButton value="#{txtMain.books}" action="#{routeBB.adminBooks()}" styleClass="menuPrimeButtonsWidth"/></li>
+					 <li><p:commandButton value="#{txtMain.borrows}" action="#{routeBB.adminBorrows()}" styleClass="menuPrimeButtonsWidth"/></li>
+					 <li><p:commandButton value="#{txtMain.signOut}" action="#{loginBB.doLogout()}" styleClass="menuPrimeButtonsWidth"/></li>
 					</h:form>
 				</ul>
 			</div>
