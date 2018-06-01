@@ -51,7 +51,7 @@
 						<p:graphicImage name="template/img/xls-icon.png" width="26"/>
 				        <p:dataExporter type="xls" target="userTable" fileName="#{txtBook.reportBooks}"/>
 				    </h:commandLink>
-				    <h:commandLink ajax="false">
+				    <h:commandLink ajax="true">
 				    	<p:graphicImage name="template/img/pdf-icon.png" width="26"/>
 				        <p:dataExporter type="pdf" target="userTable" fileName="reportFile" encoding="iso-8859-2" />
 				    </h:commandLink>

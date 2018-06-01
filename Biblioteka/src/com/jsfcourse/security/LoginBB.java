@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import bib.dao.UzytkownikDAO;
 
 import bib.entities.Uzytkownik;
+import bib.uzytkownik.UzytkownikEditBB;
 
 @ManagedBean
 public class LoginBB {
@@ -79,6 +80,7 @@ public class LoginBB {
 		if (!validateData()) {
 			return PAGE_STAY_AT_THE_SAME;
 		}
+		pass = UzytkownikEditBB.passwdHash(pass);
 
 		user = getUserFromDatabase(login, pass);
 
